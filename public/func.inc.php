@@ -27,7 +27,7 @@ switch($page){
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// Si la page n'est pas référencer alors
     default;
-		$content = "./model/frontend/home.php";  
+		$content = "./model/frontend/mod_home.php";  
 		$titre =  "Accueil";
 		break;
 }

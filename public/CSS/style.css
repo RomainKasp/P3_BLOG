@@ -479,7 +479,7 @@ input:-ms-input-placeholder {
 /*For Home Section*/
 
 .home{
-    background: url(./public/images/header-bg.jpg) no-repeat center;
+    background: url(../images/header-bg.jpg) no-repeat center;
     -moz-background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
