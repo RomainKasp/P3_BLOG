@@ -22,13 +22,13 @@
 
 			<!-- Liste des vignettes -->
 			<?php
-				for(int i; i<= sizeof($resultat); i++){
-					$dateArticle   = $resultat[i][0];
-					$titreArticle  = $resultat[i][1];
-					$resumeArticle = $resultat[i][2];
-					$imageArticle  = $resultat[i][3];
+				for($i=0; $i> sizeof($resultat); $i++){
+					$dateArticle   = $resultat[$i][0];
+					$titreArticle  = $resultat[$i][1];
+					$resumeArticle = $resultat[$i][2];
+					$imageArticle  = $resultat[$i][3];
 					
-					REQUIRE("./view/frontend/template/template_articleTimeline.php");
+					REQUIRE("./view/frontend/template/template_lastest.php");
 				}
 			?>
            

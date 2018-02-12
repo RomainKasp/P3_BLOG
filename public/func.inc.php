@@ -15,8 +15,8 @@ switch($page){
 		break;      
 	case "latest";  
 		$menu3   = " class=\"active\"";
-		$content = "./model/frontend/mod_about.php";  
-		$titre =  "Dernières parutions"; 
+		$content = "./model/frontend/mod_lastest.php";  
+		$titre =  "DerniÃ¨res parutions"; 
 		break;          
 	case "summary";  
 		$menu4   = " class=\"active\"";
@@ -25,7 +25,7 @@ switch($page){
 		break;    
 
 	//////////////////////////////////////////////////////////////////////////////////////////
-	// Si la page n'est pas référencer alors
+	// Si la page n'est pas referencer alors
     default;
 		$content = "./model/frontend/mod_home.php";  
 		$titre =  "Accueil";
