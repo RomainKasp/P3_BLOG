@@ -23,6 +23,10 @@ switch($page){
 		$content = "./model/frontend/mod_summary.php";  
 		$titre =  "Sommaire"; 
 		break;    
+	case "access";  
+		$content = "./model/backend/mod_adminPan.php";  
+		$titre =  "Administration"; 
+		break;  		
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// Si la page n'est pas referencer alors

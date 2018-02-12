@@ -17,3 +17,8 @@
                 </div>
             </div>	
         </header>
+		<center>
+		<h3><?php echo $titrePage; ?></h3>
+                            
+		<?php echo $contenuPage; ?>
+		</center>
