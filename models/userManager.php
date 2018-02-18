@@ -5,7 +5,7 @@
 	{
 		private $colonnes = " UTI_ID, UTI_NOM, UTI_PSW, UTI_DAT_CRE, UTI_DAT_FIN, UTI_MAIL ";
 		private $tabuti  = " utilisateur ";
-		private $frm      = " FROM ".$tabComm." U ";
+		private $frm      = " FROM ".$tabuti." U ";
 
 		/***************************************************************
 		* Requetes de selections                                       *
