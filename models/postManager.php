@@ -60,7 +60,7 @@
 			$bdd = dbConnect();
 			$chaineReq = "DELETE" . $frm . "WHERE BIL_ID = :BIL_ID";
 			$requete = $bdd->prepare($chaineReq);
-			$requete->bindValue(':BIL_ID', $id_com, PDO::PARAM_STR);
+			$requete->bindValue(':BIL_ID', $BIL_ID, PDO::PARAM_STR);
 			$requete->execute();
 			
 			return $requete;
