@@ -11,20 +11,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <link rel="stylesheet" href="./public/css/bootstrap.min.css">
-        <!--<link rel="stylesheet" href="./public/css/bootstrap-theme.min.css">-->
-
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
 
         <!--For Plugins external css-->
-        <link rel="stylesheet" href="./public/css/plugins.css" />
+        <link rel="stylesheet" href="./css/plugins.css" />
 
-        <link rel="stylesheet" href="./public/css/raleway-webfont.css" />
+        <link rel="stylesheet" href="./css/raleway-webfont.css" />
 
         <!--Theme custom css -->
-        <link rel="stylesheet" href="./public/css/style.css">
+        <link rel="stylesheet" href="./css/style.css">
 
         <!--Theme Responsive css-->
-        <link rel="stylesheet" href="./public/css/responsive.css" />
+        <link rel="stylesheet" href="./css/responsive.css" />
 
-        <!--<script src="./public/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>-->
     </head>
