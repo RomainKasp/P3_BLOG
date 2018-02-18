@@ -1,7 +1,7 @@
 <?php
 	require_once("models/databaseManager.php"); 
 
-	class postManager extends databaseManager
+	class userManager extends databaseManager
 	{
 		private $colonnes = " UTI_ID, UTI_NOM, UTI_PSW, UTI_DAT_CRE, UTI_DAT_FIN, UTI_MAIL ";
 		private $tabuti  = " utilisateur ";
