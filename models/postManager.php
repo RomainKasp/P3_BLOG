@@ -94,11 +94,12 @@
 		/**
 		* Modification d'un article
 		**/
-		protected function modifyPost($BIL_TITRE,$BIL_DAT_MOD,$BIL_TXT,$BIL_DAT_VISU){
+		protected function modifyPost($BIL_ID,$BIL_TITRE,$BIL_DAT_MOD,$BIL_TXT,$BIL_DAT_VISU){
 			$bdd = dbConnect();
-			$chaineReq = "UPDATE " . $tabbill . "SET BIL_TITRE = :BIL_TITRE, SET BIL_DAT_MOD = :BIL_DAT_MOD, SET BIL_TXT = :BIL_TXT, SET BIL_DAT_VISU = :BIL_DAT_VISU";
+			$chaineReq = "UPDATE " . $tabbill . "SET BIL_TITRE = :BIL_TITRE, SET BIL_DAT_MOD = :BIL_DAT_MOD, SET BIL_TXT = :BIL_TXT, SET BIL_DAT_VISU = :BIL_DAT_VISU WHERE BIL_ID = :BIL_ID";
 			$requete = $bdd->prepare($chaineReq);
             $requete->bindValue(:BIL_TITRE   , $BIL_TITRE    ,
+								:BIL_ID      , $BIL_ID       ,
 								:BIL_DAT_MOD , $BIL_DAT_MOD  ,
 								:BIL_TXT     , $BIL_TXT      ,
 								:BIL_DAT_VISU, $BIL_DAT_VISU ,
