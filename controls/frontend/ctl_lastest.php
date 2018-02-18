@@ -1,6 +1,8 @@
 <?PHP
 	// traitement
-	// traitement à venir - REQUIRE("./controller/frontend/lastest.php");
-	$resultat = null;
+	REQUIRE("../models/post.php");
+	$page      = new post();
+	$vignettes = $page->getLastChap();
+	
 	// visuels
 	REQUIRE("../view/frontend/view_lastest.php");

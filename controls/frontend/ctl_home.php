@@ -1,8 +1,10 @@
 <?PHP
 	// traitement
-	// traitement à venir - REQUIRE("./controller/frontend/home.php");
-	$titrePage = "Préface";
-	$contenuPage = "Courte introduction au récit";
+	REQUIRE("../models/post.php");
+	$page = new post();
+	$tab = $page->getPage(1);
+	$titrePage = $tab[0];
+	$contenuPage = $tab[1];
 	
 	// visuels
 	REQUIRE("../view/frontend/view_home.php");

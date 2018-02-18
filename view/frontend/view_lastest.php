@@ -22,14 +22,7 @@
 
 			<!-- Liste des vignettes -->
 			<?php
-				for($i=0; $i> sizeof($resultat); $i++){
-					$dateArticle   = $resultat[$i][0];
-					$titreArticle  = $resultat[$i][1];
-					$resumeArticle = $resultat[$i][2];
-					$imageArticle  = $resultat[$i][3];
-					
-					REQUIRE("./view/frontend/template/template_lastest.php");
-				}
+				echo $vignettes;
 			?>
            
         </div> <!-- cd-timeline -->
