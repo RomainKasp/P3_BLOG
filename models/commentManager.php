@@ -59,16 +59,16 @@
 			$bdd = dbConnect();
 			$chaineReq = "INSERT INTO " . $tabComm . "(".$colonnes.") VALUES (:UTI_ID,:BIL_ID,:COM_ID,:COM_USR,:COM_MAIL,:COM_TXT,:COM_DAT,:COM_DAT,:COM_NBR_RPT,:COM_ETA)";
 			$requete = $bdd->prepare($chaineReq);
-            $requete->bindValue(':UTI_ID'     , $UTI_ID     
-                                ':BIL_ID'     , $BIL_ID     
-                                ':COM_ID'     , $COM_ID     
-                                ':COM_USR'    , $COM_USR    
-                                ':COM_MAIL'   , $COM_MAIL   
-                                ':COM_TXT'    , $COM_TXT    
-                                ':COM_DAT'    , $COM_DAT    
-                                ':COM_DAT'    , $COM_DAT    
-                                ':COM_NBR_RPT', $COM_NBR_RPT
-                                ':COM_ETA'    , $COM_ETA    
+            $requete->bindValue(':UTI_ID'     , $UTI_ID     ,
+                                ':BIL_ID'     , $BIL_ID     ,
+                                ':COM_ID'     , $COM_ID     ,
+                                ':COM_USR'    , $COM_USR    ,
+                                ':COM_MAIL'   , $COM_MAIL   ,
+                                ':COM_TXT'    , $COM_TXT    ,
+                                ':COM_DAT'    , $COM_DAT    ,
+                                ':COM_DAT'    , $COM_DAT    ,
+                                ':COM_NBR_RPT', $COM_NBR_RPT,
+                                ':COM_ETA'    , $COM_ETA    ,
                                 PDO::PARAM_STR);
 			$requete->execute();
 			
