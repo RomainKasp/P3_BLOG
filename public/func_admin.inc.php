@@ -5,6 +5,9 @@ $page = @$_GET['page2'];
 switch($page){
 	case "connect";  
 		$content2 = "../controls/backend/ctl_connect.php";  
+		break;    	
+	case "home";  
+		$content2 = "../view/backend/view_home.php";  
 		break;    		
 
 	//////////////////////////////////////////////////////////////////////////////////////////
