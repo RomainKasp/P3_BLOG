@@ -12,7 +12,6 @@
             <div class="about-bg">
                 <div class="container">
 
-                    <!-- Example row of columns -->
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <div class="about-content">
@@ -30,6 +29,6 @@
                         </div>
 
                     </div>
-                </div> <!-- /container -->   
+                </div>  
             </div>
         </section>
