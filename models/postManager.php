@@ -26,6 +26,30 @@
 			return $requete;
 		}		
 		/**
+		* Selection d'un chapitre
+		**/
+		protected function selectChap($BIL_ID){
+			$bdd     = $this->dbConnect();
+			$tab[1]  = " ";
+			$requete = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_CHAP, BIL_IMG FROM billet WHERE BIL_DAT_VISU < CURRENT_DATE AND BIL_CHAP > 0 AND BIL_ID =:BIL_ID");
+			$requete->bindValue(':BIL_ID', $BIL_ID);
+			$requete->execute();
+
+			while ($donnees = $requete->fetch()){
+				$tab[0] = $donnees['BIL_ID'];	
+				$tab[1] = $donnees['UTI_ID'];	
+				$tab[2] = $donnees['BIL_TITRE'];	
+				$tab[3] = $donnees['BIL_DAT_CRE'];	
+				$tab[4] = $donnees['BIL_DAT_MOD'];	
+				$tab[5] = $donnees['BIL_TXT'];	
+				$tab[6] = $donnees['BIL_DAT_VISU'];	
+				$tab[6] = $donnees['BIL_CHAP'];	
+				$tab[7] = $donnees['BIL_IMG'];	
+			}			
+			
+			return $tab;
+		}		
+		/**
 		* Selection d'une page 
 		* (recup seulement le titre, le contenu)
 		**/

@@ -8,8 +8,8 @@
 					<p>".$dateArticle."</p>
                     <h2>".$titreArticle."</h2>
                     <p>".$resumeArticle."</p>
-                    <a href='#0' class='cd-read-more'>Lire la suite...</a>
-                    <span class='cd-date'><img src='".$imageArticle."' alt='timeline' /></span>
+                    <a href='?page=chapitre&idchap=".$id."' class='cd-read-more'>Lire la suite...</a>
+                    <span class='cd-date'><img src='../public/images/articles/".$imageArticle."' alt='timeline' /></span>
                 </div> <!-- cd-timeline-content -->
             </div> <!-- cd-timeline-block -->";
 	}else{		
@@ -21,7 +21,7 @@
 					<p>".$dateArticle."</p>
                     <h2>".$titreArticle."</h2>
                     <p>".$resumeArticle."</p>
-                    <a href='#0' class='cd-read-more'>Lire la suite...</a>
+                    <a href='?page=chapitre&idchap=".$id."' class='cd-read-more'>Lire la suite...</a>
                 </div> <!-- cd-timeline-content -->
 			</div> <!-- cd-timeline-block -->";
 	}
