@@ -6,10 +6,11 @@
 					<div class="separator"></div>
                 </div>
 
-                <div class="heading-separator"></div>
+                <div class="heading-separator"></div>				
 				
 				<!-- Liste numerotée de l'ensemble des articles-->
 				<?php echo $liste; ?>
+				
         </div>
 
     </section>

@@ -4,7 +4,7 @@
 	$page      = new post();
 	$idchap    = $_GET['idchap'];
 	
-	echo $idchap .'----------------------------------------';
+	//echo $idchap .'----------------------------------------';
 	$tab           = $page->getChapitre($idchap);
 	$titreChapitre = $tab[2]; 
 	$contentChapite= $tab[5];

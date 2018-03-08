@@ -81,5 +81,65 @@
 			}
 			
 			return $result;
-		}			
+		}
+		/**
+		* Recupere le visuel de la liste des pages pour modification
+		**/
+		public function getlistPage(){
+			$result = "Aucune page disponible";	
+			$res = "";
+			$tab = $this->selectAllPage();
+		
+			if ($tab[0][0] > 0){
+				$res .= "<table>";
+				for ($i = 1; $i <= $tab[0][0]; $i++) {
+					$titrePage  = $tab[$i][2];
+					$resumePage = $tab[$i][5];
+					$idPage     = $tab[$i][0];
+					
+					if (strlen($resumePage) > 150){
+						$resumePage = substr($resumePage,0,150) . "...";
+					}
+
+					$res .= "<tr><form method='post' action='?page=access&admin=modPag&id=".$idPage."'><td>".$titrePage."</td>";
+					$res .= "<td>".$resumePage."</td>";
+					$res .= "<td><button>Modifier</button></td></form></tr>";
+				}
+				$res .= "</table>";
+				$result = $res;
+			}
+			
+			return $result;
+		}		
+		/**
+		* Recupere le visuel de la liste des articles pour modification
+		**/
+		public function getlistArticl(){
+			$result = "Aucune page disponible";	
+			$res = "";
+			$tab = $this->selectAllArticle();
+		
+			if ($tab[0][0] > 0){
+				$res .= "<table width='50%'>";
+				for ($i = 1; $i <= $tab[0][0]; $i++) {
+					$titrePage  = $tab[$i][2];
+					$resumePage = $tab[$i][5];
+					$idPage     = $tab[$i][0];
+					
+					if (strlen($resumePage) > 50){
+						$resumePage = substr($resumePage,0,50) . "...";
+					}
+
+					$res .= "<tr><form method='post' action='?page=access&admin=modArt&id=".$idPage."'><td width='5%'>".$titrePage."</td>";
+					$res .= "<td>".$resumePage."</td>";
+					$res .= "<td width='15%'><button>Modifier</button></td>";
+					$res .= "<td width='15%'><button>Supprimer</button></td>";
+					$res .= "</form></tr>";
+				}
+				$res .= "</table>";
+				$result = $res;
+			}
+			
+			return $result;
+		}		
 	}

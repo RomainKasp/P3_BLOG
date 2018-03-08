@@ -123,6 +123,58 @@
 			
 			return $tab;
 		}
+		/**
+		* Selection de toutes les pages 
+		* (pour gestion admin)
+		**/
+		protected function selectAllPage(){
+			$ind       = 0;
+			$bdd       = $this->dbConnect();
+			$chaineReq = "SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_EST_PAGE,BIL_IMG FROM billet B WHERE BIL_CHAP = '0' ORDER BY BIL_EST_PAGE ASC LIMIT 0,30";
+			$requete   = $bdd->prepare($chaineReq);
+			$requete->execute();
+			
+			while ($donnees = $requete->fetch()){
+				$ind++;
+				$tab[$ind][0] = $donnees['BIL_ID'];	
+				$tab[$ind][1] = $donnees['UTI_ID'];	
+				$tab[$ind][2] = $donnees['BIL_TITRE'];	
+				$tab[$ind][3] = $donnees['BIL_DAT_CRE'];	
+				$tab[$ind][4] = $donnees['BIL_DAT_MOD'];	
+				$tab[$ind][5] = $donnees['BIL_TXT'];	
+				$tab[$ind][6] = $donnees['BIL_DAT_VISU'];	
+				$tab[$ind][7] = $donnees['BIL_IMG'];	
+			}			
+			$tab[0][0] = $ind;
+			
+			return $tab;
+		}
+		/**
+		* Selection de toutes les articles 
+		* (pour gestion admin)
+		**/
+		protected function selectAllArticle(){
+			$ind       = 0;
+			$bdd       = $this->dbConnect();
+			$chaineReq = "SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_EST_PAGE,BIL_IMG FROM billet B WHERE BIL_EST_PAGE = '0' AND BIL_DAT_VISU < CURRENT_TIMESTAMP ORDER BY BIL_CHAP DESC";
+			$requete   = $bdd->prepare($chaineReq);
+			$requete->execute();
+			
+			while ($donnees = $requete->fetch()){
+				$ind++;
+				$tab[$ind][0] = $donnees['BIL_ID'];	
+				$tab[$ind][1] = $donnees['UTI_ID'];	
+				$tab[$ind][2] = $donnees['BIL_TITRE'];	
+				$tab[$ind][3] = $donnees['BIL_DAT_CRE'];	
+				$tab[$ind][4] = $donnees['BIL_DAT_MOD'];	
+				$tab[$ind][5] = $donnees['BIL_TXT'];	
+				$tab[$ind][6] = $donnees['BIL_DAT_VISU'];	
+				$tab[$ind][7] = $donnees['BIL_IMG'];	
+			}			
+			$tab[0][0] = $ind;
+			
+			return $tab;
+		}
 		/***************************************************************
 		* Requetes de suppression                                      *
 		***************************************************************/		

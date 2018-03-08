@@ -1338,3 +1338,66 @@ input:-ms-input-placeholder {
 	left: 0px;
 	bottom: 0px;
 }
+td{
+	padding: 5px;
+}
+	.usrVign{
+		background-color: silver;
+		text-align:center;
+		width : 50%;
+		border: 1px solid black;
+		border-radius: 20px;
+		margin: 10px;
+		padding: 10px;
+	}
+	.usrTab{
+		text-align:center;
+		width : 100%;
+		border-collapse:collapse;
+	}	
+	.usrNom{
+		font-weight:bold;
+		font-size: X-large;
+	}		
+	.usrMail{
+		text-align: center;
+		font-size: large;
+	}		
+	.usrDateCre{
+		text-align: right;
+		width : 50%;
+		font-size: large;
+	}		
+	.usrDateFin{
+		text-align: left;
+		width : 50%;
+		font-size: large;
+	}		
+	.btnUser{
+		font-size: large;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 10px;
+	}	
+	.btnUser:hover{
+		font-size: X-large;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 0px;
+		background-color: grey;
+	}		
+	.btnUser:active{
+		font-size: large;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 10px;
+		background-color: light-grey;
+	}
+	.usrVign2{
+		background-color: white;
+		text-align:center;
+		width : 50%;
+		border: 1px solid white;
+		border-radius: 20px;
+		margin: 10px;
+		
