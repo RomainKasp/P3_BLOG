@@ -1400,4 +1400,20 @@ td{
 		border: 1px solid white;
 		border-radius: 20px;
 		margin: 10px;
-		
+	}
+	.tab-Val{
+		text-align: left;
+		width : 50%;
+	}	
+	.tab-Lab{
+		text-align: right;
+		font-weight:bold;
+		width : 50%;
+	}	
+	.tab-Lab2{
+		text-align: center;
+		font-weight:bold;
+	}	
+	.xdebug-error{
+		margin-top: 200px;
+	}			

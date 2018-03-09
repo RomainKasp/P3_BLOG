@@ -1,12 +1,8 @@
 <?php
-	require_once("models/databaseManager.php"); 
+	require_once("../models/databaseManager.php"); 
 
 	class commentManager extends databaseManager
 	{
-		private $colonnes = " UTI_ID,BIL_ID,COM_ID,COM_USR,COM_MAIL,COM_TXT,COM_DAT,COM_DAT,COM_NBR_RPT,COM_ETA ";
-		private $tabComm  = " commentaire ";
-		private $frmComm  = " FROM ".$tabComm." C ";
-		private $joinBill = " INNER JOIN billet B ON C.BIL_ID = B.BIL_ID ";
 		/***************************************************************
 		* Requetes de selections                                       *
 		***************************************************************/		
@@ -15,34 +11,23 @@
 		**/
 		protected function selectCommentPost($id_bil){
 			$bdd = dbConnect();
-			$chaineReq = "SELECT" . $colonnes . $frmComm . $joinBill . "WHERE BIL_ID = :id_bil";
+			$chaineReq = "SELECT UTI_ID,BIL_ID,COM_ID,COM_USR,COM_MAIL,COM_TXT,COM_DAT,COM_DAT,COM_NBR_RPT,COM_ETA  FROM commentaire  BIL_ID = :id_bil";
 			$requete = $bdd->prepare($chaineReq);
 			$requete->bindValue(':id_bil', $id_bil, PDO::PARAM_STR);
 			$requete->execute();
 			
 			return $requete;
 		}
-		/**
-		* Selection des commentaires non validés
-		*  ordonné par le nombre de report 
-		**/
-		protected function selectCommentnonValid(){
-			$bdd = dbConnect();
-			$chaineReq = "SELECT" . $colonnes . $frmComm . "WHERE COM_ETA < 2 AND COM_NBR_RPT > 0 ORDER BY COM_NBR_RPT ASC";
-			$requete = $bdd->prepare($chaineReq);
-			$requete->execute();
-			
-			return $requete;
-		}		
+	
 		/***************************************************************
 		* Requetes de suppression                                      *
 		***************************************************************/		
 		/**
 		* Suppression d'un commentaire
 		**/
-		protected function deleteComment($id_com){
+		protected function supprCom($id_com){
 			$bdd = dbConnect();
-			$chaineReq = "DELETE" . $frmComm . "WHERE COM_ID = :id_com";
+			$chaineReq = "DELETE FROM commentaire WHERE COM_ID = :id_com";
 			$requete = $bdd->prepare($chaineReq);
 			$requete->bindValue(':id_com', $id_com, PDO::PARAM_STR);
 			$requete->execute();
@@ -55,21 +40,15 @@
 		/**
 		* Insertion d'un commentaire
 		**/
-		protected function insertComment($UTI_ID,$BIL_ID,$COM_ID,$COM_USR,$COM_MAIL,$COM_TXT,$COM_DAT,$COM_DAT,$COM_NBR_RPT,$COM_ETA){
+		protected function insertComment($COM_USR,$COM_MAIL,$COM_TXT){
 			$bdd = dbConnect();
-			$chaineReq = "INSERT INTO " . $tabComm . "(".$colonnes.") VALUES (:UTI_ID,:BIL_ID,:COM_ID,:COM_USR,:COM_MAIL,:COM_TXT,:COM_DAT,:COM_DAT,:COM_NBR_RPT,:COM_ETA)";
+			$chaineReq = "INSERT INTO " . $tabComm . "( COM_USR,COM_MAIL,COM_TXT,COM_DAT,COM_DAT,COM_NBR_RPT,COM_ETA) VALUES (:COM_USR,:COM_MAIL,:COM_TXT,:COM_DAT,NOW(),:COM_NBR_RPT,:COM_ETA)";
 			$requete = $bdd->prepare($chaineReq);
-            $requete->bindValue(':UTI_ID'     , $UTI_ID     ,
-                                ':BIL_ID'     , $BIL_ID     ,
-                                ':COM_ID'     , $COM_ID     ,
-                                ':COM_USR'    , $COM_USR    ,
+            $requete->bindValue(':COM_USR'    , $COM_USR    ,
                                 ':COM_MAIL'   , $COM_MAIL   ,
                                 ':COM_TXT'    , $COM_TXT    ,
-                                ':COM_DAT'    , $COM_DAT    ,
-                                ':COM_DAT'    , $COM_DAT    ,
-                                ':COM_NBR_RPT', $COM_NBR_RPT,
-                                ':COM_ETA'    , $COM_ETA    ,
-                                PDO::PARAM_STR);
+                                ':COM_NBR_RPT', 0           ,
+                                ':COM_ETA'    , -1          );
 			$requete->execute();
 			
 			return $requete;
