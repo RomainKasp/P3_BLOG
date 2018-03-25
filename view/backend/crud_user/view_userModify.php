@@ -4,8 +4,7 @@
 		 <h3>Modification d'un utilisateur</h3>
 
 		<div class="separator"></div>
-		<center>
-		<form method="post" action="traitement.php">
+		<center><form method="post" action="traitement.php">
 			<table class=form-tab>
 				<tr>
 					<td align=right class=form-lib>Nom utilisateur</td>
@@ -26,9 +25,11 @@
 				<tr>
 					<td class="tdco">Confirmation de mot de passe :</td>
 					<td><input type="password" name="pswNewUtiBis" size="15" maxlength="15" required=required/></td>
-				</tr>		
+				</tr>
+				<tr>
+					<td align=center colspan=2><input type="submit" value="Envoyer"></td>
+				</tr>					
 			</table>
-		</form>
-		</center>
+		</form></center>
 	</div>
 </section>

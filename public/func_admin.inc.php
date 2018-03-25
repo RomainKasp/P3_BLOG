@@ -20,6 +20,9 @@ switch($page){
 		break;    	
 	case "pagesA";  
 		$content2 = "../controls/backend/ctl_pageList.php";  
+		break;      	
+	case "commen";  
+		$content2 = "../controls/backend/ctl_commen.php";  
 		break;    		
 
 	//////////////////////////////////////////////////////////////////////////////////////////

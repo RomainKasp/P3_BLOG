@@ -21,14 +21,14 @@
 	
 	// Partie Commentaires  
 	//--- Traitement insertion commentaire
-	$testNewCom = (ISSET($_POST['newCom']))       && (ISSET($_POST['newCom_ident'])) 
+	$testNewCom =   (ISSET($_POST['newCom_ident'])) 
 	           && (ISSET($_POST['newCom_mail']))  && (ISSET($_POST['newCom_txt']));
 			   
 	if ($testNewCom){
-		//$res = $comm->insertCom($_POST['newCom_ident'],$_POST['newCom_mail'],$_POST['newCom_txt']);
+		$res = $comm->insertCom($idchap,$_POST['newCom_ident'],$_POST['newCom_mail'],$_POST['newCom_txt']);
+		//echo 'res: '.$res;
 		
 		if ($res > 0){
-		   unset($_POST['newCom']);
 		   unset($_POST['newCom_ident']);
 		   unset($_POST['newCom_mail']);
 		   unset($_POST['newCom_txt']);
@@ -43,4 +43,9 @@
 	 include('..\view\frontend\template\template_commentCreate.php');
 	 
 	//--- Liste des 50 derniers commentaires
+	$commentaires = $comm->getLastCom($idchap);
+	
+	echo $commentaires;
+	
+	
 	

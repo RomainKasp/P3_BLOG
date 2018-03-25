@@ -19,6 +19,58 @@
 			}
 			
 			return $tab;
+		}	
+		/**
+		* Recupere les 50 derniers comms
+		**/
+		public function getLastCom($idChap){
+			$result = "";	
+			$res = "";
+			$tab = $this->selectLastCom($idChap);
+		
+			if ($tab[0][0] > 0){
+				for ($i = 1; $i <= $tab[0][0]; $i++) {
+					$idcomX        = $tab[$i][0];
+					$pseudoCOmX    = $tab[$i][1];
+					$dateCOmX      = $tab[$i][4];
+					$timeCOmX      = $tab[$i][7];
+					$txtCOmX       = $tab[$i][3];
+					$nbrRprtCOmX   = $tab[$i][5];
+					
+					$nbrRprtCOmX++;
+					
+					include("../view/frontend/template/template_commentList.php");
+					$res .= $commentaireX;
+				}
+				$result = $res;
+			}
+			
+			return $result;
+		}
+		/**
+		* Recupere les commentaires reportés (par tranche de 100)
+		**/
+		public function getRprtCom(){
+			$result = "";	
+			$res = "";
+			$tab = $this->selectRprtCom();
+		
+			if ($tab[0][0] > 0){
+				for ($i = 1; $i <= $tab[0][0]; $i++) {
+					$idcomX        = $tab[$i][0];
+					$pseudoCOmX    = $tab[$i][1];
+					$dateCOmX      = $tab[$i][4];
+					$timeCOmX      = $tab[$i][7];
+					$txtCOmX       = $tab[$i][3];
+					$nbrRprtCOmX   = $tab[$i][5];
+					
+					include("../view/backend/template/template_commentList.php");
+					$res .= $commentaireX;
+				}
+				$result = $res;
+			}
+			
+			return $result;
 		}		
 		/**
 		* Recupere les commentaires non validés
@@ -26,21 +78,15 @@
 		public function getComNonVld(){
 
 		}		
-		/**
-		* Recupere les commentaires reportés
-		**/
-		public function getComRprt(){
-
-		}	
 		/***************************************************************
 		* Fonctions pour l'insertion                                   *
 		***************************************************************/		
 		/**
 		* Insertion un commentaire
 		**/
-		public function insertCom($nom, $mail, $txt){
+		public function insertCom($id_bill,$nom, $mail, $txt){
 
-			$nbrInsr = $this->insComm($nom, $mail, $txt);
+			$nbrInsr = $this->insComm($id_bill, $nom, $mail, $txt);
 			return $nbrInsr;
 		}			
 		/***************************************************************
