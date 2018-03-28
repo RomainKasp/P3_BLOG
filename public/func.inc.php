@@ -27,6 +27,10 @@ switch($page){
 		$content = "../controls/frontend/ctl_chapitre.php";  
 		$titre =  "Chapitre"; 
 		break;    
+	case "commentaire";  
+		$content = "../controls/ctl_comGoal.php";  
+		$titre =  "Administration"; 
+		break;     
 	case "access";  
 		$content = "../controls/backend/ctl_adminPan.php";  
 		$titre =  "Administration"; 
