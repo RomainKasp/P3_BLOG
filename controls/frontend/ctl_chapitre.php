@@ -33,9 +33,9 @@
 		   unset($_POST['newCom_mail']);
 		   unset($_POST['newCom_txt']);
 		}else{
-			$Com_ident = $_POST['newCom_ident'];
-			$Com_mail  = $_POST['newCom_mail'];
-			$Com_txt   = $_POST['newCom_txt'];
+			$Com_ident = strip_tags($_POST['newCom_ident']);
+			$Com_mail  = strip_tags($_POST['newCom_mail']);
+			$Com_txt   = strip_tags($_POST['newCom_txt']);
 		}
 	}
 	

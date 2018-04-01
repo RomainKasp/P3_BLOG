@@ -36,6 +36,7 @@
 					$timeCOmX      = $tab[$i][7];
 					$txtCOmX       = $tab[$i][3];
 					$nbrRprtCOmX   = $tab[$i][5];
+					$etatCOmX 	   = $tab[$i][6];
 					
 					$nbrRprtCOmX++;
 					

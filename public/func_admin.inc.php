@@ -12,12 +12,6 @@ switch($page){
 	case "articl";  
 		$content2 = "../controls/backend/ctl_articlList.php";  
 		break;     	
-	case "lstUsr";  
-		$content2 = "../controls/backend/ctl_userList.php";  
-		break;    	
-	case "creaUsr";  
-		$content2 = "../view/backend/crud_user/view_userCreate.php";  
-		break;    	
 	case "pagesA";  
 		$content2 = "../controls/backend/ctl_pageList.php";  
 		break;      	

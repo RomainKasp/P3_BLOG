@@ -3,11 +3,6 @@
 
 	class postManager extends databaseManager
 	{
-		private $colonnes = " BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_EST_PAGE ";
-		private $tabbill  = " billet ";
-		private $frm      = " FROM billet B ";
-		private $joinUti  = " INNER JOIN utilisateur U ON U.UTI_ID = B.UTI_ID ";
-		private $colUsr   = ",UTI_ID, UTI_NOM ";
 		/***************************************************************
 		* Requetes de selections                                       *
 		***************************************************************/		
@@ -181,15 +176,13 @@
 		/**
 		* Suppression d'un article
 		**/
-		protected function deletePost($BIL_ID){
-			global $colonnes, $tabbill, $frm, $joinUti, $colUsr;
+		protected function supprPost($BIL_ID){
 			$bdd = $this->dbConnect();
-			$chaineReq = "DELETE" . $frm . "WHERE BIL_ID = :BIL_ID";
-			$requete = $bdd->prepare($chaineReq);
-			$requete->bindValue(':BIL_ID', $BIL_ID, PDO::PARAM_STR);
-			$requete->execute();
+			$requete = $bdd->prepare("DELETE FROM billet WHERE BIL_ID = :BIL_ID");
+            $requete->execute(array('BIL_ID'     => $BIL_ID    ));
+			$count = $requete->rowCount();
 			
-			return $requete;
+			return $count;
 		}	
 		/***************************************************************
 		* Requetes d'insertion                                         *

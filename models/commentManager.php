@@ -37,7 +37,7 @@
 		protected function selectRprtCom(){
 			$ind       = 0;
 			$bdd       = $this->dbConnect();
-			$requete   = $bdd->prepare("SELECT COM_ID, COM_USR, COM_MAIL, COM_TXT, date(COM_DAT) as COM_DATE,time(COM_DAT) as COM_TIME, COM_NBR_RPT, COM_ETAT FROM commentaire WHERE COM_NBR_RPT > 0 AND COM_ETAT < 3 ORDER BY COM_DAT DESC LIMIT 0,50");
+			$requete   = $bdd->prepare("SELECT COM_ID, COM_USR, COM_MAIL, COM_TXT, date(COM_DAT) as COM_DATE,time(COM_DAT) as COM_TIME, COM_NBR_RPT, COM_ETAT FROM commentaire WHERE COM_NBR_RPT > 0 AND COM_ETAT < 3 ORDER BY COM_NBR_RPT DESC LIMIT 0,50");
 			$requete->execute();
 			
 			while ($donnees = $requete->fetch()){

@@ -130,16 +130,29 @@
 						$resumePage = substr($resumePage,0,50) . "...";
 					}
 
-					$res .= "<tr><form method='post' action='?page=access&admin=modArt&id=".$idPage."'><td width='5%'>".$titrePage."</td>";
+					$res .= "<tr><td width='5%'>".$titrePage."</td>";
 					$res .= "<td>".$resumePage."</td>";
-					$res .= "<td width='15%'><button>Modifier</button></td>";
-					$res .= "<td width='15%'><button>Supprimer</button></td>";
-					$res .= "</form></tr>";
+					$res .= "<td width='15%'><form method='post' action='?page=access&admin=updateArt&id=".$idPage."'>";;
+					$res .= '<button onClick="submit()">Modifier</button></form></td>';
+					$res .= "<td width='15%'><form method='post' action='?page=billet&action=deleteArt&id=".$idPage."'>";
+					$res .= '<button onClick="submit()">Supprimer</button></form></td>';
+					$res .= "</tr>";
 				}
 				$res .= "</table>";
 				$result = $res;
 			}
 			
 			return $result;
-		}		
+		}	
+		/***************************************************************
+		* Fonctions pour la suppression                                *
+		***************************************************************/		
+		/**
+		* Suppression d'un commentaire
+		**/
+		public function deletePost($id){
+
+			$nbrDel = $this->supprPost($id);
+			return $nbrDel;
+		}			
 	}
