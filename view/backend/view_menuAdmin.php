@@ -6,8 +6,8 @@
     <ul class="nav navbar-nav">
       <li><a href="?page=access&admin=articl">Articles</a></li>
       <li><a href="?page=access&admin=commen">Commentaires</a></li>
-      <li><a href="?page=access&admin=lstUsr">Utilisateurs</a></li>
-      <li><a href="?page=access&admin=option">Options</a></li>
+      <!--<li><a href="?page=access&admin=lstUsr">Utilisateurs</a></li>
+      <li><a href="?page=access&admin=option">Options</a></li>-->
       <li><a href="?page=access&admin=pagesA">Pages</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">

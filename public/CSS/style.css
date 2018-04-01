@@ -1416,4 +1416,20 @@ td{
 	}	
 	.xdebug-error{
 		margin-top: 200px;
-	}			
+	}	
+	.info-success{
+		margin-top: 50px;
+		border-radius:20px;
+		text-align:center;
+		width : 50%;
+		border: 1px solid #31B404;
+		background-color: #58FA58;
+	}
+	.info-fail{
+		margin-top: 50px;
+		border-radius:20px;
+		text-align:center;
+		width : 50%;
+		border: 1px solid #F78181;
+		background-color: #DF0101;
+	}
