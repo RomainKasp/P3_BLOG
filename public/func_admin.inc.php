@@ -17,6 +17,15 @@ switch($page){
 		break;      	
 	case "commen";  
 		$content2 = "../controls/backend/ctl_commen.php";  
+		break;      	
+	case "createArt";  
+		$content2 = "../controls/backend/ctl_articlCrea.php";  
+		break;      	
+	case "updateArt";  
+		$content2 = "../controls/backend/ctl_articlUpdt.php";  
+		break;      	
+	case "updatePag";  
+		$content2 = "../controls/backend/ctl_pageUpdt.php";  
 		break;    		
 
 	//////////////////////////////////////////////////////////////////////////////////////////

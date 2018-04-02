@@ -23,5 +23,9 @@
 
         <!--Theme Responsive css-->
         <link rel="stylesheet" href="./css/responsive.css" />
-
+		<?php
+		if ($Tiny)
+		echo '<!--TinyMce-->
+		<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+		<script type="text/javascript" src="../public/js/tiny.js"></script>'; ?>
     </head>

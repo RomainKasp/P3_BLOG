@@ -1,5 +1,6 @@
 <?php
 $menu1 = " "; $menu2 = " "; $menu3 = " "; $menu4 = " ";
+$Tiny = false;
 
 $page = @$_GET['page']; 
 switch($page){
@@ -36,6 +37,7 @@ switch($page){
 		$titre =  "Administration"; 
 		break;     
 	case "access";  
+		$Tiny = true;
 		$content = "../controls/backend/ctl_adminPan.php";  
 		$titre =  "Administration"; 
 		break;  		

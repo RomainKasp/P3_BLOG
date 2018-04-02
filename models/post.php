@@ -94,14 +94,14 @@
 				$res .= "<table>";
 				for ($i = 1; $i <= $tab[0][0]; $i++) {
 					$titrePage  = $tab[$i][2];
-					$resumePage = $tab[$i][5];
+					$resumePage = $resumePage = strip_tags($tab[$i][5]);
 					$idPage     = $tab[$i][0];
 					
 					if (strlen($resumePage) > 150){
 						$resumePage = substr($resumePage,0,150) . "...";
 					}
 
-					$res .= "<tr><form method='post' action='?page=access&admin=modPag&id=".$idPage."'><td>".$titrePage."</td>";
+					$res .= "<tr><form method='post' action='?page=access&admin=updatePag&id=".$idPage."'><td>".$titrePage."</td>";
 					$res .= "<td>".$resumePage."</td>";
 					$res .= "<td><button>Modifier</button></td></form></tr>";
 				}
@@ -123,7 +123,7 @@
 				$res .= "<table width='50%'>";
 				for ($i = 1; $i <= $tab[0][0]; $i++) {
 					$titrePage  = $tab[$i][2];
-					$resumePage = $tab[$i][5];
+					$resumePage = strip_tags($tab[$i][5]);
 					$idPage     = $tab[$i][0];
 					
 					if (strlen($resumePage) > 50){
@@ -144,15 +144,56 @@
 			
 			return $result;
 		}	
+		/**
+		* Recupere le prochain numéro de chapitre
+		**/
+		public function getNewChapNumber(){
+			$result = 0;	
+			$res = "";
+			$nbr = $this->selectLastNumChap();
+			$nbr++;
+			
+			return $nbr;
+		}	
 		/***************************************************************
 		* Fonctions pour la suppression                                *
 		***************************************************************/		
 		/**
-		* Suppression d'un commentaire
+		* Suppression d'un article
 		**/
 		public function deletePost($id){
 
 			$nbrDel = $this->supprPost($id);
 			return $nbrDel;
+		}	
+		/***************************************************************
+		* Fonctions pour la création                                *
+		***************************************************************/		
+		/**
+		* Création d'un article
+		**/
+		public function createPost($titre,$txt,$datvisu,$numchap){
+
+			$nbrIns = $this->createArticle($titre,$txt,$datvisu,$numchap);
+			return $nbrIns;
+		}	
+		/***************************************************************
+		* Fonctions pour la modification                               *
+		***************************************************************/		
+		/**
+		* Modificarion d'un article
+		**/
+		public function updatePost($titre,$txt,$datvisu,$numchap,$idbil){
+
+			$nbrUpdt = $this->updtPost($titre,$txt,$datvisu,$numchap,$idbil);
+			return $nbrUpdt;
+		}			
+		/**
+		* Modificarion d'une page
+		**/
+		public function updatePage($titre,$txt,$idbil){
+
+			$nbrUpdt = $this->updtPage($titre,$txt,$idbil);
+			return $nbrUpdt;
 		}			
 	}

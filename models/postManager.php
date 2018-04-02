@@ -37,7 +37,7 @@
 				$tab[3] = $donnees['BIL_DAT_CRE'];	
 				$tab[4] = $donnees['BIL_DAT_MOD'];	
 				$tab[5] = $donnees['BIL_TXT'];	
-				$tab[6] = $donnees['BIL_DAT_VISU'];	
+				$tab[8] = $donnees['BIL_DAT_VISU'];	
 				$tab[6] = $donnees['BIL_CHAP'];	
 				$tab[7] = $donnees['BIL_IMG'];	
 			}			
@@ -170,6 +170,21 @@
 			
 			return $tab;
 		}
+		/**
+		* Selection du numéro de chapitre maximum 
+		**/
+		protected function selectLastNumChap(){
+			$ind       = 0;
+			$bdd       = $this->dbConnect();
+			$requete   = $bdd->prepare("SELECT MAX(BIL_CHAP) AS dernChap FROM billet");
+			$requete->execute();
+			
+			while ($donnees = $requete->fetch()){
+				$result = $donnees['dernChap'];		
+			}			
+			
+			return $result;
+		}
 		/***************************************************************
 		* Requetes de suppression                                      *
 		***************************************************************/		
@@ -190,23 +205,16 @@
 		/**
 		* Insertion d'un article
 		**/
-		protected function insertPost($UTI_ID,$BIL_ID,$COM_ID,$COM_USR,$COM_MAIL,$COM_TXT,$COM_DAT,$COM_DAT,$COM_NBR_RPT,$COM_ETA){
-			global $colonnes, $tabbill, $frm, $joinUti, $colUsr;
-			$bdd = $this->dbConnect();
-			$chaineReq = "INSERT INTO " . $tabbill . "(".$colonnes.") VALUES (:BIL_ID, :UTI_ID, :BIL_TITRE, :BIL_DAT_CRE, :BIL_DAT_MOD, :BIL_TXT, :BIL_DAT_VISU, :BIL_EST_PAGE)";
-			$requete = $bdd->prepare($chaineReq);
-            $requete->bindValue(':BIL_ID      ', $BIL_ID       ,
-								':UTI_ID      ', $UTI_ID       ,
-								':BIL_TITRE   ', $BIL_TITRE    ,
-								':BIL_DAT_CRE ', $BIL_DAT_CRE  ,
-								':BIL_DAT_MOD ', $BIL_DAT_MOD  ,
-								':BIL_TXT     ', $BIL_TXT      ,
-								':BIL_DAT_VISU', $BIL_DAT_VISU ,
-								':BIL_EST_PAGE', $BIL_EST_PAGE ,                               
-                                PDO::PARAM_STR);
-			$requete->execute();
+		protected function createArticle($BILTITRE,$BILTXT,$DATVISU,$BILCHAP){
+			$bdd       = $this->dbConnect();
+			$requete = $bdd->prepare("INSERT INTO billet(BIL_TITRE, BIL_TXT, BIL_DAT_VISU, BIL_CHAP) VALUES (:BILTITRE, :BILTXT, :DATVISU, :BILCHAP)");
+            $requete->execute(array('BILTITRE'   => $BILTITRE ,
+                                    'BILTXT'     => $BILTXT   ,
+                                    'DATVISU'    => $DATVISU  ,
+                                    'BILCHAP'    => $BILCHAP  ));
+			$count = $requete->rowCount();
 			
-			return $requete;
+			return $count;
 		}	
 		/***************************************************************
 		* Requetes de modification                                     *
@@ -214,19 +222,29 @@
 		/**
 		* Modification d'un article
 		**/
-		protected function modifyPost($BIL_ID,$BIL_TITRE,$BIL_DAT_MOD,$BIL_TXT,$BIL_DAT_VISU){
-			global $colonnes, $tabbill, $frm, $joinUti, $colUsr;
+		protected function updtPost($titre,$txt,$datvisu,$numchap,$idbil){		
 			$bdd = $this->dbConnect();
-			$chaineReq = "UPDATE " . $tabbill . "SET BIL_TITRE = :BIL_TITRE, SET BIL_DAT_MOD = :BIL_DAT_MOD, SET BIL_TXT = :BIL_TXT, SET BIL_DAT_VISU = :BIL_DAT_VISU WHERE BIL_ID = :BIL_ID";
-			$requete = $bdd->prepare($chaineReq);
-            $requete->bindValue(':BIL_TITRE   ', $BIL_TITRE    ,
-								':BIL_ID      ', $BIL_ID       ,
-								':BIL_DAT_MOD ', $BIL_DAT_MOD  ,
-								':BIL_TXT     ', $BIL_TXT      ,
-								':BIL_DAT_VISU', $BIL_DAT_VISU ,
-								PDO::PARAM_STR);
-			$requete->execute();
+			$requete = $bdd->prepare("UPDATE billet SET BIL_TITRE=:titre,BIL_DAT_MOD=CURRENT_TIMESTAMP,BIL_TXT=:txt,BIL_DAT_VISU=:datvisu,BIL_CHAP=:numchap WHERE BIL_ID = :idbil");
+            $requete->execute(array('titre'     => $titre   , 
+                                    'txt'       => $txt     , 
+                                    'datvisu'   => $datvisu , 
+                                    'numchap'   => $numchap , 
+                                    'idbil'     => $idbil   ));
+			$count = $requete->rowCount();
 			
-			return $requete;
+			return $count;		
+		}
+		/**
+		* Modification d'une page
+		**/
+		protected function updtPage($titre,$txt,$idbil){		
+			$bdd = $this->dbConnect();
+			$requete = $bdd->prepare("UPDATE billet SET BIL_TITRE=:titre,BIL_TXT=:txt WHERE BIL_ID = :idbil");
+            $requete->execute(array('titre'     => $titre   , 
+                                    'txt'       => $txt     , 
+                                    'idbil'     => $idbil   ));
+			$count = $requete->rowCount();
+			
+			return $count;		
 		}			
 	}
