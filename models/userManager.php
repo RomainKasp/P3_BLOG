@@ -46,21 +46,6 @@
 			return $tab;			
 		}
 		/***************************************************************
-		* Requetes de suppression                                      *
-		***************************************************************/		
-		/**
-		* Suppression d'un utilisateur
-		**/
-		protected function deleteUsr($id_uti){
-			$bdd = dbConnect();
-			$chaineReq = "DELETE FROM utilisateur WHERE UTI_ID = :id_uti";
-			$requete = $bdd->prepare($chaineReq);
-			$requete->bindValue(':id_uti', $id_uti, PDO::PARAM_STR);
-			$requete->execute();
-			
-			return $requete;
-		}	
-		/***************************************************************
 		* Requetes d'insertion                                         *
 		***************************************************************/
 		/**
@@ -83,19 +68,5 @@
 		/***************************************************************
 		* Requetes de modification                                     *
 		***************************************************************/
-		///**
-		//* Modification d'un itilisateur
-		//**/
-		//protected function modifyUsr($UTI_NOM,$UTI_PSW,$UTI_DAT_FIN,$UTI_MAIL){
-		//	$bdd = dbConnect();
-		//	$chaineReq = "UPDATE utilisateur SET UTI_NOM = :UTI_NOM, SET UTI_PSW = :UTI_PSW, SET UTI_DAT_FIN = :UTI_DAT_FIN, SET UTI_MAIL = :UTI_MAIL";
-		//	$requete = $bdd->prepare($chaineReq);
-        //    $requete->bindValue(':UTI_NOM'      , $UTI_NOM    ,
-		//						':UTI_PSW'      , $UTI_PSW    ,
-		//						':UTI_DAT_FIN'  , $UTI_DAT_FIN,
-		//						':UTI_MAIL'     , $UTI_MAIL   );
-		//	$requete->execute();
-		//	
-		//	return $requete;
-		//}			
+		
 	}

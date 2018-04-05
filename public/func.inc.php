@@ -37,6 +37,7 @@ switch($page){
 		$titre =  "Administration"; 
 		break;     
 	case "access";  
+		session_start();
 		$Tiny = true;
 		$content = "../controls/backend/ctl_adminPan.php";  
 		$titre =  "Administration"; 

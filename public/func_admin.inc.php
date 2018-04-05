@@ -26,6 +26,10 @@ switch($page){
 		break;      	
 	case "updatePag";  
 		$content2 = "../controls/backend/ctl_pageUpdt.php";  
+		break;   	
+	case "disconnect";  
+		session_destroy();
+		$content2 = "../controls/backend/ctl_connect.php";   
 		break;    		
 
 	//////////////////////////////////////////////////////////////////////////////////////////

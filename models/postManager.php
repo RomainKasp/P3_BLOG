@@ -5,21 +5,7 @@
 	{
 		/***************************************************************
 		* Requetes de selections                                       *
-		***************************************************************/		
-		/**
-		* Selection d'un billet avec nom auteur
-		* (pour visuel simple)
-		**/
-		protected function selectPost($id_bil){
-			global $colonnes, $tabbill, $frm, $joinUti, $colUsr;
-			$bdd = $this->dbConnect();
-			$chaineReq = "SELECT" . $colonnes . $colUsr . $frm . $joinUti . "WHERE BIL_ID = :id_bil";
-			$requete = $bdd->prepare($chaineReq);
-			$requete->bindValue(':id_bil', $id_bil, PDO::PARAM_STR);
-			$requete->execute();
-			
-			return $requete;
-		}		
+		***************************************************************/			
 		/**
 		* Selection d'un chapitre
 		**/
@@ -49,7 +35,6 @@
 		* (recup seulement le titre, le contenu)
 		**/
 		protected function selectPage($BIL_EST_PAGE){
-			global $colonnes, $tabbill, $frm, $joinUti, $colUsr;
 			$tab[1] = "";
 			$bdd = $this->dbConnect();
 			$requete = $bdd->prepare("SELECT BIL_TITRE, BIL_TXT, BIL_IMG FROM billet WHERE BIL_EST_PAGE = :BIL_EST_PAGE");
@@ -69,7 +54,6 @@
 		* (pour liste des 10 derniers articles)
 		**/
 		protected function selectLastest(){
-			global $colonnes, $tabbill, $frm, $joinUti, $colUsr;
 			$ind       = 0;
 			$bdd       = $this->dbConnect();
 			$requete   = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_EST_PAGE,BIL_IMG FROM billet B WHERE BIL_EST_PAGE = '0' AND BIL_DAT_VISU < CURRENT_TIMESTAMP ORDER BY BIL_CHAP DESC LIMIT 0,10");
@@ -96,7 +80,6 @@
 		* (pour sommaire)
 		**/
 		protected function selectAllPost(){
-			global $colonnes, $tabbill, $frm, $joinUti, $colUsr;
 			$ind       = 0;
 			$bdd       = $this->dbConnect();
 			$chaineReq = "SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_EST_PAGE,BIL_IMG FROM billet B WHERE BIL_EST_PAGE = '0' AND BIL_DAT_VISU < CURRENT_TIMESTAMP ORDER BY BIL_CHAP ASC LIMIT 0,10";

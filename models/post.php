@@ -48,7 +48,7 @@
 				for ($i = 1; $i <= $tab[0][0]; $i++) {
 					$dateArticle   = $tab[$i][3];
 					$titreArticle  = $tab[$i][2];
-					$resumeArticle = $tab[$i][5];
+					$resumeArticle = strip_tags($tab[$i][5]);
 					$imageArticle  = $tab[$i][7];
 					$id            = $tab[$i][0];
 					
