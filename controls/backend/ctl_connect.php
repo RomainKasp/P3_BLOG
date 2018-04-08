@@ -1,5 +1,5 @@
 <?PHP
-	// traitement - a venir
+	// traitement	
 	
 	// visuels
 	REQUIRE("../view/backend/crud_user/view_userConnect.php");
