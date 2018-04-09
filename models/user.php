@@ -14,7 +14,7 @@
 			$passDB;
 			$tab = $this->selectUser($identhUsr);
 			if($tab[0]>0){
-				$passDB = $tab[1];
+				$passDB = $tab[1][2];
 			
 			   if (password_verify($identhPass, $passDB))  return TRUE;
 			   else                                        return FALSE;

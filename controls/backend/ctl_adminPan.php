@@ -8,7 +8,7 @@
 		if (isset($_POST['idCoUtil']) AND isset($_POST['pswCoUtil'])){
 			REQUIRE("../models/user.php");
 			$user      		= new user();
-			$authentified 	= $user->connectUsr($identhUsr, $identhPass);
+			$authentified 	= $user->connectUsr($_POST['idCoUtil'], $_POST['pswCoUtil']);
 		} else{
 			session_destroy();
 			unset($_POST['idCoUtil']); 
@@ -19,7 +19,7 @@
 		//si authentification réussie on renseigne les variables globales
 		// sinon on vide toutes les infos 
 		if ($authentified){
-			$_SESSION['identhUsr']	= $identhUsr;
+			$_SESSION['identhUsr']	= $_POST['idCoUtil'];
 			$_SESSION['startSess']	= new DateTime();
 		}else{
 			$content2 = "../controls/backend/ctl_connect.php";

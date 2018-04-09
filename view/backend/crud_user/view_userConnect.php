@@ -12,11 +12,11 @@
 			<div class="row">
 				<div class="col-md-6 col-sm-6 col-xs-6">
 					<div class="about-content">
-						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+						<form method="post" action="?page=access&admin=home">
 							<table>
 								<tr>
 									<td class="tdco">Identifiant :</td>
-									<td><input type="text" name="idCoUtil" size="15" maxlength="8" required=required/></td>
+									<td><input type="text" name="idCoUtil" size="15" maxlength="60" required=required/></td>
 								</tr>
 								<tr>
 									<td class="tdco">Mot de passe :</td>
