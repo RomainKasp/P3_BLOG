@@ -2,7 +2,7 @@
 		<?php require("../view/backend/view_menuAdmin.php"); ?>
         <div class="heading-content text-center">
                 <div class="heading-title">
-                    <h4>Modification d'un chapitre</h4>
+                    <h4>Modification d'une page</h4>
 					<div class="separator"></div>
                 </div>
 
@@ -10,7 +10,7 @@
 					<form method="post" action="?page=billet&action=updatePag&id=".$idt>
 						<table class=form-tab>
 							<tr>
-								<td align=right class=form-lib>Nom du chapitre<input type='hidden' name="pid" value="<?php echo $idpage; ?>"></td>
+								<td align=right class=form-lib>Nom de la page<input type='hidden' name="pid" value="<?php echo $idpage; ?>"></td>
 								<td><input type="text" name="pTitre" size="30" maxlength="30" value="<?php echo $titreChap; ?>" required=required/></td>
 							</tr>		
 							<tr>

@@ -11,8 +11,34 @@
 		**/
 		protected function selectChap($BIL_ID){
 			$bdd     = $this->dbConnect();
+			$tab[0]  = false;
 			$tab[1]  = " ";
-			$requete = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_CHAP, BIL_IMG FROM billet WHERE BIL_DAT_VISU < CURRENT_DATE AND BIL_CHAP > 0 AND BIL_ID =:BIL_ID");
+			$requete = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_CHAP, BIL_IMG FROM billet WHERE BIL_DAT_VISU < current_time AND BIL_CHAP > 0 AND BIL_ID =:BIL_ID");
+			$requete->bindValue(':BIL_ID', $BIL_ID);
+			$requete->execute();
+
+			while ($donnees = $requete->fetch()){
+				$tab[0] = $donnees['BIL_ID'];	
+				$tab[1] = $donnees['UTI_ID'];	
+				$tab[2] = $donnees['BIL_TITRE'];	
+				$tab[3] = $donnees['BIL_DAT_CRE'];	
+				$tab[4] = $donnees['BIL_DAT_MOD'];	
+				$tab[5] = $donnees['BIL_TXT'];	
+				$tab[8] = $donnees['BIL_DAT_VISU'];	
+				$tab[6] = $donnees['BIL_CHAP'];	
+				$tab[7] = $donnees['BIL_IMG'];	
+			}			
+			
+			return $tab;
+		}	
+		/**
+		* Selection d'un chapitre sans restriction de date
+		**/
+		protected function selectChapAdmin($BIL_ID){
+			$bdd     = $this->dbConnect();
+			$tab[1]  = " ";
+			$tab[0]  = false;
+			$requete = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_CHAP, BIL_IMG FROM billet WHERE BIL_CHAP > 0 AND BIL_ID =:BIL_ID");
 			$requete->bindValue(':BIL_ID', $BIL_ID);
 			$requete->execute();
 
@@ -109,6 +135,32 @@
 			$ind       = 0;
 			$bdd       = $this->dbConnect();
 			$chaineReq = "SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_EST_PAGE,BIL_IMG FROM billet B WHERE BIL_CHAP = '0' ORDER BY BIL_EST_PAGE ASC LIMIT 0,30";
+			$requete   = $bdd->prepare($chaineReq);
+			$requete->execute();
+			
+			while ($donnees = $requete->fetch()){
+				$ind++;
+				$tab[$ind][0] = $donnees['BIL_ID'];	
+				$tab[$ind][1] = $donnees['UTI_ID'];	
+				$tab[$ind][2] = $donnees['BIL_TITRE'];	
+				$tab[$ind][3] = $donnees['BIL_DAT_CRE'];	
+				$tab[$ind][4] = $donnees['BIL_DAT_MOD'];	
+				$tab[$ind][5] = $donnees['BIL_TXT'];	
+				$tab[$ind][6] = $donnees['BIL_DAT_VISU'];	
+				$tab[$ind][7] = $donnees['BIL_IMG'];	
+			}			
+			$tab[0][0] = $ind;
+			
+			return $tab;
+		}
+		/**
+		* Selection de toutes les articles sans restriction de date
+		* (pour gestion admin)
+		**/
+		protected function selectAllArticleAdmin(){
+			$ind       = 0;
+			$bdd       = $this->dbConnect();
+			$chaineReq = "SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_EST_PAGE,BIL_IMG FROM billet B WHERE BIL_EST_PAGE = '0' ORDER BY BIL_CHAP DESC";
 			$requete   = $bdd->prepare($chaineReq);
 			$requete->execute();
 			

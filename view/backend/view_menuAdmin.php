@@ -11,7 +11,7 @@
       <li><a href="?page=access&admin=pagesA">Pages</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="?page=access&admin=disconnect"><span class="glyphicon glyphicon-user"></span>Deconnection</a></li>
+      <li><a href="?page=access&admin=disconnect"><span class="glyphicon glyphicon-user"></span>Deconnexion</a></li>
     </ul>
   </div>
 </nav>
