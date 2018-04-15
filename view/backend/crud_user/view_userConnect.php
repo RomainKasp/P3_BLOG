@@ -15,7 +15,7 @@
 						<form method="post" action="?page=access&admin=home">
 							<table>
 								<tr>
-									<td class="tdco">Identifiant :</td>
+									<td class="tdco">Identifiant :<input type="hidden" name="tok" value="<?php echo $token; ?>"/></td>
 									<td><input type="text" name="idCoUtil" size="15" maxlength="60" required=required/></td>
 								</tr>
 								<tr>

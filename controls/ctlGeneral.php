@@ -92,6 +92,7 @@
 						break;
 					case "disconnect";  
 						session_destroy();
+						session_start();
 						$token = $this->creerToken();
 						require("../view/backend/crud_user/view_userConnect.php");   
 						break;    		
@@ -114,7 +115,9 @@
 			
 				// si formulaire de connexion remplis on essaye de consulter la base
 				if (isset($_POST['idCoUtil']) AND isset($_POST['pswCoUtil'])){
-					if ($_POST['tok'] = $_SESSION['token']){
+					if (isset($_SESSION['token'])) $token = $_SESSION['token'];
+					else $token ="noTokenAllowed";
+					if ($_POST['tok'] == $token){
 						require ("../models/user.php");
 						$user      		= new user();
 						$authentified 	= $user->connectUsr($_POST['idCoUtil'], $_POST['pswCoUtil']);
