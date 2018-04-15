@@ -7,7 +7,7 @@
                 </div>
 
 				<center>
-					<form method="post" action="?page=billet&action=createArt&id=".$idt>
+					<form method="post" action="?page=access&admin=billet&action=createArt&id=".$idt>
 						<table class=form-tab>
 							<tr>
 								<td align=right class=form-lib>Nom du chapitre</td>

@@ -183,7 +183,7 @@
 					$res .= "<td>".$resumePage."</td>";
 					$res .= "<td width='15%'><form method='post' action='?page=access&admin=updateArt&id=".$idPage."'>";;
 					$res .= '<button onClick="submit()">Modifier</button></form></td>';
-					$res .= "<td width='15%'><form method='post' action='?page=billet&action=deleteArt&id=".$idPage."'>";
+					$res .= "<td width='15%'><form method='post' action='?page=access&admin=billet&action=deleteArt&id=".$idPage."'>";
 					$res .= '<button onClick="submit()">Supprimer</button></form></td>';
 					$res .= "</tr>";
 				}

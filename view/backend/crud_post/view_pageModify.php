@@ -7,7 +7,7 @@
                 </div>
 
 				<center>
-					<form method="post" action="?page=billet&action=updatePag&id=".$idt>
+					<form method="post" action="?page=access&admin=billet&action=updatePag&id=".$idpage>
 						<table class=form-tab>
 							<tr>
 								<td align=right class=form-lib>Nom de la page<input type='hidden' name="pid" value="<?php echo $idpage; ?>"></td>

@@ -1,6 +1,9 @@
-<?PHP
-	REQUIRE("../public/func.inc.php");
-	REQUIRE("../view/frontend/template/header.php");
-	REQUIRE("../view/frontend/template/menu.php");
-	REQUIRE($content);
-	REQUIRE("../view/frontend/template/footer.php");	
+<?php
+	require("../public/func.inc.php");
+	
+	require("../view/frontend/template/header.php");
+	require("../view/frontend/template/menu.php");
+	require("../controls/ctlGeneral.php");
+	$dir = new ctlGeneral();
+	$dir -> paginationPublique();
+	require("../view/frontend/template/footer.php");	
