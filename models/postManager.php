@@ -1,6 +1,8 @@
 <?php
+	namespace models;
 	require_once("../models/databaseManager.php"); 
-
+	require_once("../hydratation/billet.php"); 
+	
 	class postManager extends databaseManager
 	{
 		/***************************************************************
@@ -11,69 +13,72 @@
 		**/
 		protected function selectChap($BIL_ID){
 			$bdd     = $this->dbConnect();
-			$tab[0]  = false;
-			$tab[1]  = " ";
+			$bil  = false;
 			$requete = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_CHAP, BIL_IMG FROM billet WHERE BIL_DAT_VISU < current_time AND BIL_CHAP > 0 AND BIL_ID =:BIL_ID");
 			$requete->bindValue(':BIL_ID', $BIL_ID);
 			$requete->execute();
 
 			while ($donnees = $requete->fetch()){
-				$tab[0] = $donnees['BIL_ID'];	
-				$tab[1] = $donnees['UTI_ID'];	
-				$tab[2] = $donnees['BIL_TITRE'];	
-				$tab[3] = $donnees['BIL_DAT_CRE'];	
-				$tab[4] = $donnees['BIL_DAT_MOD'];	
-				$tab[5] = $donnees['BIL_TXT'];	
-				$tab[8] = $donnees['BIL_DAT_VISU'];	
-				$tab[6] = $donnees['BIL_CHAP'];	
-				$tab[7] = $donnees['BIL_IMG'];	
+				$bil = new \hydratation\billet();
+		        $bil->setIdentifiant($donnees['BIL_ID']);
+		        $bil->setCreateur($donnees['UTI_ID']);
+		        $bil->setTitre($donnees['BIL_TITRE']);
+		        $bil->setDateCrea($donnees['BIL_DAT_CRE']);
+		        $bil->setDateModif($donnees['BIL_DAT_MOD']);
+		        $bil->setContenu($donnees['BIL_TXT']);
+		        $bil->setDateVisu($donnees['BIL_DAT_VISU']);
+		        $bil->setNumeroPage(0);
+		        $bil->setNumeroChapitre($donnees['BIL_CHAP']);
+		        $bil->setLienImage($donnees['BIL_IMG']);			
 			}			
 			
-			return $tab;
+			return $bil;
 		}	
 		/**
 		* Selection d'un chapitre sans restriction de date
 		**/
 		protected function selectChapAdmin($BIL_ID){
 			$bdd     = $this->dbConnect();
-			$tab[1]  = " ";
-			$tab[0]  = false;
+			$bil  = false;
 			$requete = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_CHAP, BIL_IMG FROM billet WHERE BIL_CHAP > 0 AND BIL_ID =:BIL_ID");
 			$requete->bindValue(':BIL_ID', $BIL_ID);
 			$requete->execute();
 
 			while ($donnees = $requete->fetch()){
-				$tab[0] = $donnees['BIL_ID'];	
-				$tab[1] = $donnees['UTI_ID'];	
-				$tab[2] = $donnees['BIL_TITRE'];	
-				$tab[3] = $donnees['BIL_DAT_CRE'];	
-				$tab[4] = $donnees['BIL_DAT_MOD'];	
-				$tab[5] = $donnees['BIL_TXT'];	
-				$tab[8] = $donnees['BIL_DAT_VISU'];	
-				$tab[6] = $donnees['BIL_CHAP'];	
-				$tab[7] = $donnees['BIL_IMG'];	
+				$bil = new \hydratation\billet();
+		        $bil->setIdentifiant($donnees['BIL_ID']);
+		        $bil->setCreateur($donnees['UTI_ID']);
+		        $bil->setTitre($donnees['BIL_TITRE']);
+		        $bil->setDateCrea($donnees['BIL_DAT_CRE']);
+		        $bil->setDateModif($donnees['BIL_DAT_MOD']);
+		        $bil->setContenu($donnees['BIL_TXT']);
+		        $bil->setDateVisu($donnees['BIL_DAT_VISU']);
+		        $bil->setNumeroPage(0);
+		        $bil->setNumeroChapitre($donnees['BIL_CHAP']);
+		        $bil->setLienImage($donnees['BIL_IMG']);
 			}			
 			
-			return $tab;
+			return $bil;
 		}		
 		/**
 		* Selection d'une page 
 		* (recup seulement le titre, le contenu)
 		**/
 		protected function selectPage($BIL_EST_PAGE){
-			$tab[1] = "";
+			$bil  = false;
 			$bdd = $this->dbConnect();
 			$requete = $bdd->prepare("SELECT BIL_TITRE, BIL_TXT, BIL_IMG FROM billet WHERE BIL_EST_PAGE = :BIL_EST_PAGE");
 			$requete->bindValue(':BIL_EST_PAGE', $BIL_EST_PAGE);
 			$requete->execute();
 			
 			while ($donnees = $requete->fetch()){
-				$tab[0] = $donnees['BIL_TITRE'];	
-				$tab[1] = $donnees['BIL_TXT'];	
-				$tab[2] = $donnees['BIL_IMG'];	
+				$bil = new \hydratation\billet();
+				$bil->setTitre($donnees['BIL_TITRE']);
+				$bil->setContenu($donnees['BIL_TXT']);
+				$bil->setLienImage($donnees['BIL_IMG']);
 			}
 			
-			return $tab;
+			return $bil;
 		}
 		/**
 		* Selection des 10 derniers billets
@@ -83,21 +88,24 @@
 			$ind       = 0;
 			$bdd       = $this->dbConnect();
 			$requete   = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_EST_PAGE,BIL_IMG FROM billet B WHERE BIL_EST_PAGE = '0' AND BIL_DAT_VISU < CURRENT_TIMESTAMP ORDER BY BIL_CHAP DESC LIMIT 0,10");
-
 			$requete->execute();
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$tab[$ind][0] = $donnees['BIL_ID'];	
-				$tab[$ind][1] = $donnees['UTI_ID'];	
-				$tab[$ind][2] = $donnees['BIL_TITRE'];	
-				$tab[$ind][3] = $donnees['BIL_DAT_CRE'];	
-				$tab[$ind][4] = $donnees['BIL_DAT_MOD'];	
-				$tab[$ind][5] = $donnees['BIL_TXT'];	
-				$tab[$ind][6] = $donnees['BIL_DAT_VISU'];	
-				$tab[$ind][7] = $donnees['BIL_IMG'];	
+				$bil = new \hydratation\billet();
+		        $bil->setIdentifiant($donnees['BIL_ID']);
+		        $bil->setCreateur($donnees['UTI_ID']);
+		        $bil->setTitre($donnees['BIL_TITRE']);
+		        $bil->setDateCrea($donnees['BIL_DAT_CRE']);
+		        $bil->setDateModif($donnees['BIL_DAT_MOD']);
+		        $bil->setContenu($donnees['BIL_TXT']);
+		        $bil->setDateVisu($donnees['BIL_DAT_VISU']);
+		        $bil->setNumeroPage($donnees['BIL_EST_PAGE']);
+		        $bil->setNumeroChapitre(0);
+		        $bil->setLienImage($donnees['BIL_IMG']);
+				$tab[$ind] = $bil;	
 			}			
-			$tab[0][0] = $ind;
+			$tab[0] = $ind;
 			
 			return $tab;
 		}
@@ -114,16 +122,20 @@
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$tab[$ind][0] = $donnees['BIL_ID'];	
-				$tab[$ind][1] = $donnees['UTI_ID'];	
-				$tab[$ind][2] = $donnees['BIL_TITRE'];	
-				$tab[$ind][3] = $donnees['BIL_DAT_CRE'];	
-				$tab[$ind][4] = $donnees['BIL_DAT_MOD'];	
-				$tab[$ind][5] = $donnees['BIL_TXT'];	
-				$tab[$ind][6] = $donnees['BIL_DAT_VISU'];	
-				$tab[$ind][7] = $donnees['BIL_IMG'];	
+				$bil = new \hydratation\billet();
+		        $bil->setIdentifiant($donnees['BIL_ID']);
+		        $bil->setCreateur($donnees['UTI_ID']);
+		        $bil->setTitre($donnees['BIL_TITRE']);
+		        $bil->setDateCrea($donnees['BIL_DAT_CRE']);
+		        $bil->setDateModif($donnees['BIL_DAT_MOD']);
+		        $bil->setContenu($donnees['BIL_TXT']);
+		        $bil->setDateVisu($donnees['BIL_DAT_VISU']);
+		        $bil->setNumeroPage($donnees['BIL_EST_PAGE']);
+		        $bil->setNumeroChapitre(0);
+		        $bil->setLienImage($donnees['BIL_IMG']);
+				$tab[$ind] = $bil;		
 			}			
-			$tab[0][0] = $ind;
+			$tab[0] = $ind;
 			
 			return $tab;
 		}
@@ -140,16 +152,20 @@
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$tab[$ind][0] = $donnees['BIL_ID'];	
-				$tab[$ind][1] = $donnees['UTI_ID'];	
-				$tab[$ind][2] = $donnees['BIL_TITRE'];	
-				$tab[$ind][3] = $donnees['BIL_DAT_CRE'];	
-				$tab[$ind][4] = $donnees['BIL_DAT_MOD'];	
-				$tab[$ind][5] = $donnees['BIL_TXT'];	
-				$tab[$ind][6] = $donnees['BIL_DAT_VISU'];	
-				$tab[$ind][7] = $donnees['BIL_IMG'];	
+				$bil = new \hydratation\billet();
+		        $bil->setIdentifiant($donnees['BIL_ID']);
+		        $bil->setCreateur($donnees['UTI_ID']);
+		        $bil->setTitre($donnees['BIL_TITRE']);
+		        $bil->setDateCrea($donnees['BIL_DAT_CRE']);
+		        $bil->setDateModif($donnees['BIL_DAT_MOD']);
+		        $bil->setContenu($donnees['BIL_TXT']);
+		        $bil->setDateVisu($donnees['BIL_DAT_VISU']);
+		        $bil->setNumeroPage($donnees['BIL_EST_PAGE']);
+		        $bil->setNumeroChapitre(0);
+		        $bil->setLienImage($donnees['BIL_IMG']);
+				$tab[$ind] = $bil;		
 			}			
-			$tab[0][0] = $ind;
+			$tab[0] = $ind;
 			
 			return $tab;
 		}
@@ -166,16 +182,20 @@
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$tab[$ind][0] = $donnees['BIL_ID'];	
-				$tab[$ind][1] = $donnees['UTI_ID'];	
-				$tab[$ind][2] = $donnees['BIL_TITRE'];	
-				$tab[$ind][3] = $donnees['BIL_DAT_CRE'];	
-				$tab[$ind][4] = $donnees['BIL_DAT_MOD'];	
-				$tab[$ind][5] = $donnees['BIL_TXT'];	
-				$tab[$ind][6] = $donnees['BIL_DAT_VISU'];	
-				$tab[$ind][7] = $donnees['BIL_IMG'];	
+				$bil = new \hydratation\billet();
+		        $bil->setIdentifiant($donnees['BIL_ID']);
+		        $bil->setCreateur($donnees['UTI_ID']);
+		        $bil->setTitre($donnees['BIL_TITRE']);
+		        $bil->setDateCrea($donnees['BIL_DAT_CRE']);
+		        $bil->setDateModif($donnees['BIL_DAT_MOD']);
+		        $bil->setContenu($donnees['BIL_TXT']);
+		        $bil->setDateVisu($donnees['BIL_DAT_VISU']);
+		        $bil->setNumeroPage($donnees['BIL_EST_PAGE']);
+		        $bil->setNumeroChapitre(0);
+		        $bil->setLienImage($donnees['BIL_IMG']);
+				$tab[$ind] = $bil;		
 			}			
-			$tab[0][0] = $ind;
+			$tab[0] = $ind;
 			
 			return $tab;
 		}
@@ -192,16 +212,20 @@
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$tab[$ind][0] = $donnees['BIL_ID'];	
-				$tab[$ind][1] = $donnees['UTI_ID'];	
-				$tab[$ind][2] = $donnees['BIL_TITRE'];	
-				$tab[$ind][3] = $donnees['BIL_DAT_CRE'];	
-				$tab[$ind][4] = $donnees['BIL_DAT_MOD'];	
-				$tab[$ind][5] = $donnees['BIL_TXT'];	
-				$tab[$ind][6] = $donnees['BIL_DAT_VISU'];	
-				$tab[$ind][7] = $donnees['BIL_IMG'];	
+				$bil = new \hydratation\billet();
+		        $bil->setIdentifiant($donnees['BIL_ID']);
+		        $bil->setCreateur($donnees['UTI_ID']);
+		        $bil->setTitre($donnees['BIL_TITRE']);
+		        $bil->setDateCrea($donnees['BIL_DAT_CRE']);
+		        $bil->setDateModif($donnees['BIL_DAT_MOD']);
+		        $bil->setContenu($donnees['BIL_TXT']);
+		        $bil->setDateVisu($donnees['BIL_DAT_VISU']);
+		        $bil->setNumeroPage(0);
+		        $bil->setNumeroChapitre($donnees['BIL_CHAP']);
+		        $bil->setLienImage($donnees['BIL_IMG']);
+				$tab[$ind] = $bil;	
 			}			
-			$tab[0][0] = $ind;
+			$tab[0] = $ind;
 			
 			return $tab;
 		}
@@ -226,10 +250,10 @@
 		/**
 		* Suppression d'un article
 		**/
-		protected function supprPost($BIL_ID){
+		protected function supprPost($bil){
 			$bdd = $this->dbConnect();
 			$requete = $bdd->prepare("DELETE FROM billet WHERE BIL_ID = :BIL_ID");
-            $requete->execute(array('BIL_ID'     => $BIL_ID    ));
+            $requete->execute(array('BIL_ID'     => $bil->getIdentifiant()    ));
 			$count = $requete->rowCount();
 			
 			return $count;
@@ -240,13 +264,13 @@
 		/**
 		* Insertion d'un article
 		**/
-		protected function createArticle($BILTITRE,$BILTXT,$DATVISU,$BILCHAP){
+		protected function createArticle($bil){
 			$bdd       = $this->dbConnect();
 			$requete = $bdd->prepare("INSERT INTO billet(BIL_TITRE, BIL_TXT, BIL_DAT_VISU, BIL_CHAP) VALUES (:BILTITRE, :BILTXT, :DATVISU, :BILCHAP)");
-            $requete->execute(array('BILTITRE'   => $BILTITRE ,
-                                    'BILTXT'     => $BILTXT   ,
-                                    'DATVISU'    => $DATVISU  ,
-                                    'BILCHAP'    => $BILCHAP  ));
+            $requete->execute(array('BILTITRE'   => $bil->getTitre() 	,
+                                    'BILTXT'     => $bil->getContenu()   ,
+                                    'DATVISU'    => $bil->getDateVisu()  ,
+                                    'BILCHAP'    => $bil->getNumeroChapitre()  ));
 			$count = $requete->rowCount();
 			
 			return $count;
@@ -257,14 +281,15 @@
 		/**
 		* Modification d'un article
 		**/
-		protected function updtPost($titre,$txt,$datvisu,$numchap,$idbil){		
+		protected function updtPost($bil){		
 			$bdd = $this->dbConnect();
+			//echo 'titre'.$bil->getTitre().'txt'.$bil->getContenu().'datvisu'.$bil->getDateVisu().'numchap'.$bil->getNumeroChapitre().'idbil'.$bil->getIdentifiant(); 
 			$requete = $bdd->prepare("UPDATE billet SET BIL_TITRE=:titre,BIL_DAT_MOD=CURRENT_TIMESTAMP,BIL_TXT=:txt,BIL_DAT_VISU=:datvisu,BIL_CHAP=:numchap WHERE BIL_ID = :idbil");
-            $requete->execute(array('titre'     => $titre   , 
-                                    'txt'       => $txt     , 
-                                    'datvisu'   => $datvisu , 
-                                    'numchap'   => $numchap , 
-                                    'idbil'     => $idbil   ));
+            $requete->execute(array('titre'     => $bil->getTitre()   , 
+                                    'txt'       => $bil->getContenu()     , 
+                                    'datvisu'   => $bil->getDateVisu() , 
+                                    'numchap'   => $bil->getNumeroChapitre() , 
+                                    'idbil'     => $bil->getIdentifiant()  ));
 			$count = $requete->rowCount();
 			
 			return $count;		
@@ -272,12 +297,13 @@
 		/**
 		* Modification d'une page
 		**/
-		protected function updtPage($titre,$txt,$idbil){		
+		protected function updtPage($bil){		
 			$bdd = $this->dbConnect();
+			//echo 'titre'.$bil->getTitre().'txt'.$bil->getContenu().'idbil'.$bil->getIdentifiant(); 
 			$requete = $bdd->prepare("UPDATE billet SET BIL_TITRE=:titre,BIL_TXT=:txt WHERE BIL_ID = :idbil");
-            $requete->execute(array('titre'     => $titre   , 
-                                    'txt'       => $txt     , 
-                                    'idbil'     => $idbil   ));
+            $requete->execute(array('titre'     => $bil->getTitre()   , 
+                                    'txt'       => $bil->getContenu()     , 
+                                    'idbil'     => $bil->getIdentifiant()   ));
 			$count = $requete->rowCount();
 			
 			return $count;		

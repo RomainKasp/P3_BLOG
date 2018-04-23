@@ -3,7 +3,10 @@
 	
 	require("../view/frontend/template/header.php");
 	require("../view/frontend/template/menu.php");
-	require("../controls/ctlGeneral.php");
-	$dir = new ctlGeneral();
-	$dir -> paginationPublique();
+	require("../controls/ctlAutoLoad.php");
+	//require("../controls/ctlGeneral.php");
+	$cal = new controls\ctlAutoLoad();
+	
+	$dir = new controls\ctlGeneral();
+	$dir -> lanceur();
 	require("../view/frontend/template/footer.php");	

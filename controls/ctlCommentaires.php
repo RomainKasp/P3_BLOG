@@ -1,4 +1,5 @@
 <?php
+	namespace controls;
 	require_once("../models/comment.php"); 
 
 	class ctlCommentaires
@@ -24,7 +25,7 @@
 		**/
 		public function listerReportComm(){
 			
-			$com = new comment();
+			$com = new \models\comment();
 			$commentaires = $com->getRprtCom();
 			
 			// visuels
@@ -35,7 +36,7 @@
 		**/
 		public function commentaireAction(){
 			$mode 		= "backend";
-			$com 		= new comment();
+			$com 		= new \models\comment();
 			$action      = @$_GET['action']; 
 			$identifiant = @$_GET['idcom'];
 			
@@ -59,7 +60,7 @@
 					break;
 			}
 			
-			echo resultAff("commen", "commentaires", $commentaires, $mode);
+			echo \models\resultAff("commen", "commentaires", $commentaires, $mode);
 		}		
 		/***************************************************************
 		* Fonctions privées                                            *
@@ -68,7 +69,7 @@
 		* Test si il y a insertion de commentaire et envoie la demande
 		**/
 		private function controlInsert($idchap){
-			$com = new comment();
+			$com = new \models\comment();
 			$testNewCom =   (ISSET($_POST['newCom_ident'])) 
 					&& (ISSET($_POST['newCom_mail']))  && (ISSET($_POST['newCom_txt']));
 					
@@ -99,7 +100,7 @@
 		* Visu des 50 derniers commentaires d'un chapitre
 		**/
 		private function lstComChap($idchap){
-			$com = new comment();
+			$com = new \models\comment();
 			$commentaires = $com->getLastCom($idchap);
 				
 			echo $commentaires;

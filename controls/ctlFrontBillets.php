@@ -1,6 +1,8 @@
 <?php
+	namespace controls;
 	require_once("../models/post.php"); 
 	require_once("../controls/ctlCommentaires.php"); 
+	require_once("../hydratation/billet.php"); 
 
 	class ctlFrontBillets 
 	{
@@ -12,9 +14,9 @@
 		**/
 		public function acceuil(){
 			
-			$tab = $this->consulterPage(1);
-			$titrePage = $tab[0];
-			$contenuPage = $tab[1];
+			$bil = $this->consulterPage(1);
+			$titrePage = $bil->getTitre();
+			$contenuPage = $bil->getContenu();
 			
 			// visuels
 			require("../view/frontend/view_home.php");
@@ -25,11 +27,11 @@
 		**/
 		public function auteur(){
 			
-			$tab = $this->consulterPage(2);
-			$titrePage = $tab[0];
-			$contenuPage = $tab[1];
-			if (strlen($tab[2]) > 0)
-				$photoPage = "./images/articles/".$tab[2];
+			$bil = $this->consulterPage(2);
+			$titrePage = $bil->getTitre();
+			$contenuPage = $bil->getContenu();
+			if (strlen($bil->getLienImage()) > 0)
+				$photoPage = "./images/articles/".$bil->getLienImage();
 			else
 				$photoPage = "./images/articles/NO_IMAGE.png";
 			
@@ -46,11 +48,11 @@
 			$Com_txt   = "";
 
 			$idchap    = $_GET['idchap'];
-			$tab = $this->consulterChapitre($idchap);
-			if ($tab[0] <> false){	
-				$titreChapitre = $tab[2]; 
-				$contentChapite= $tab[5];
-				$imgChapitre   = $tab[7];
+			$bil = $this->consulterChapitre($idchap);
+			if ($bil <> false){	
+				$titreChapitre = $bil->getTitre();
+				$contentChapite= $bil->getContenu();
+				$imgChapitre   = $bil->getLienImage();
 				
 				// visuels
 				require("../view/frontend/view_post.php");
@@ -68,7 +70,7 @@
 		* Liste des 10 derniers chapitres
 		**/
 		public function nouveautes(){
-			$page = new post();
+			$page = new \models\post();
 			$vignettes = $page->getLastChap();
 			require("../view/frontend/view_lastest.php");
 		}	
@@ -77,7 +79,7 @@
 		**/
 		public function sommaire(){
 			
-			$page = new post();
+			$page = new \models\post();
 			$liste = $page->getListChap();
 			
 	        require("../view/frontend/view_summary.php");		
@@ -90,7 +92,7 @@
 		**/
 		private function consulterPage($idPage){
 
-			$page = new post();
+			$page = new \models\post();
 			$tab = $page->getPage($idPage);
 			
 			return $tab;
@@ -100,7 +102,7 @@
 		**/
 		private function consulterChapitre($idChapitre){
 
-			$page = new post();
+			$page = new \models\post();
 			$tab = $page->getChapitre($idChapitre);
 			
 			return $tab;

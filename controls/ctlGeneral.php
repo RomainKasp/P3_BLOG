@@ -1,4 +1,5 @@
 <?php
+	namespace controls;
 	require_once("../controls/ctlFrontBillets.php"); 
 	require_once("../controls/ctlBackBillets.php"); 
 	class ctlGeneral
@@ -9,7 +10,7 @@
 		/**
 		* Redirige vers le controleur associer au menu et sa fonction
 		**/
-		public function paginationPublique(){	
+		public function lanceur(){	
 			if (isset($_GET['page']))
 				$page = @$_GET['page']; 
 			else 
@@ -119,7 +120,7 @@
 					else $token ="noTokenAllowed";
 					if ($_POST['tok'] == $token){
 						require ("../models/user.php");
-						$user      		= new user();
+						$user      		= new \models\user();
 						$authentified 	= $user->connectUsr($_POST['idCoUtil'], $_POST['pswCoUtil']);
 					} else {
 						return false;
@@ -135,7 +136,7 @@
 				// sinon on vide toutes les infos 
 				if ($authentified){
 					$_SESSION['identhUsr']	= $_POST['idCoUtil'];
-					$_SESSION['startSess']	= new DateTime();
+					$_SESSION['startSess']	= new \DateTime();
 					return true;
 				}else{
 					return false;

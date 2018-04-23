@@ -1,4 +1,5 @@
 <?php
+	namespace models;
 	require_once("../models/commentManager.php"); 
 
 	class comment extends commentManager

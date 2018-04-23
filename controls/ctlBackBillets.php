@@ -1,4 +1,5 @@
 <?php
+	namespace controls;
 	require_once("../models/post.php"); 
 
 	class ctlBackBillets 
@@ -10,7 +11,7 @@
 		* Création d'un chapitre
 		**/
 		public function creerChapitre(){
-			$page = new post();
+			$page = new \models\post();
 			$numChap   = $page->getNewChapNumber();
 			$numChapMax = $numChap; 
 			$numChapMax++;
@@ -22,7 +23,7 @@
 		* Liste les articles pour la modération
 		**/
 		public function listerChapitre(){
-			$page = new post();
+			$page = new \models\post();
 			$vignettes = $page->getlistArticlAdmin();
 			
 			// visuels
@@ -32,26 +33,27 @@
 		* Mise à jour d'un aticle
 		**/
 		public function modifierChapitre(){
-			$page = new post();
-			$idchap    = $_GET['id'];
-			$tab       = $page->getChapitreAdmin($idchap);
-			if ($tab[0] <> false){
-			   $titreChap = $tab[2];
-			   $numChap   = $tab[6];
-			   $dateVisu  = substr ($tab[8],0 ,10);
-			   $heurVisu  = substr ($tab[8],11 ,5);
-			   $txtChap   = $tab[5];
+			$page   = new \models\post();
+			$idchap = $_GET['id'];
+			$chap   = $page->getChapitreAdmin($idchap);
+			if ($chap <> false){
+			   $titreChap = $chap->getTitre();
+			   $numChap   = $chap->getNumeroChapitre();
+			   
+			   $dateVisu  = substr ($chap->getDateVisu(),0 ,10);
+			   $heurVisu  = substr ($chap->getDateVisu(),11 ,5);
+			   $txtChap   = $chap->getContenu();
 			   // visuels
 			   require("../view/backend/crud_post/view_postModify.php");
 			}else{
-				echo resultAff("articl", "articles", 0, "backend");
+				echo \models\resultAff("articl", "articles", 0, "backend");
 			}
 		}	
 		/**
 		* Liste les pages pour l'administration
 		**/
 		public function listerPage(){
-			$page = new post();
+			$page = new \models\post();
 			$vignettes = $page->getlistPage();
 			require("../view/backend/crud_post/view_pageList.php");
 		}	
@@ -59,11 +61,11 @@
 		* Modifier une page
 		**/
 		public function modifierPage(){
-			$page = new post();
+			$page = new \models\post();
 			$idpage    = $_GET['id'];
 			$tab       = $page->getPage($idpage);
-			$titreChap = $tab[0];
-			$txtChap   = $tab[1];
+			$titreChap = $tab->getTitre();
+			$txtChap   = $tab->getContenu();
 			// visuels
 			require("../view/backend/crud_post/view_pageModify.php");
 		}	
@@ -74,40 +76,46 @@
 			// Variables
 			$objetGestion = "articl";
 			$objet		  = "articles";
-			$page = new post();
+			$page = new \models\post();
 			$action      = @$_GET['action']; 
 			
 			switch($action){
 				case "updatePag";  
-					$idt 	= $_POST['pid'];
-					$titre	= strip_tags($_POST['pTitre']);
-					$pagTxt	= $_POST['pTxt'];
+					$bil = new \hydratation\billet();
+					$bil->setIdentifiant($_POST['pid']);
+					$bil->setTitre(strip_tags($_POST['pTitre']));
+					$bil->setContenu($_POST['pTxt']);
 					
-					$nbrLgn = $page->updatePage($titre,$pagTxt,$idt);
+					$nbrLgn = $page->updatePage($bil);
 					$objetGestion = "pagesA";
 					$objet		  = "pages";
 					break;    	
 					
 				case "deleteArt";  
-					$idt = @$_GET['id'];
-					$nbrLgn = $page->deletePost($idt);  
+					$bil = new \hydratation\billet();
+					$bil->setIdentifiant(@$_GET['id']);
+					$nbrLgn = $page->deletePost($bil);  
 					break;
 					
 				case "updateArt"; 
-					$titre  = strip_tags($_POST['aTitre']);
-					$txt    = $_POST['aTxt'];
-					$datvisu= strip_tags($_POST['aDatVis']) . " " . strip_tags($_POST['aHeuVis']).":00";
-					$numchap= strip_tags($_POST['aNum']);
-					$idbil  = $_POST['aid'];
-					$nbrLgn = $page->updatePost($titre,$txt,$datvisu,$numchap,$idbil); 
+					$bil = new \hydratation\billet();
+					$bil->setIdentifiant($_POST['aid']);
+					$bil->setTitre(strip_tags($_POST['aTitre']));
+					$bil->setContenu($_POST['aTxt']);
+					$bil->setDateVisu(strip_tags($_POST['aDatVis']) . " " . strip_tags($_POST['aHeuVis']).":00");
+					$bil->setNumeroChapitre(strip_tags($_POST['aNum']));
+					
+					$nbrLgn = $page->updatePost($bil); 
 					break;     	
 					
 				case "createArt";
-					$titre  = strip_tags($_POST['aTitre']);
-					$txt    = $_POST['aTxt'];
-					$datvisu= strip_tags($_POST['aDatVis']) . " " . strip_tags($_POST['aHeuVis']).":00";
-					$numchap= strip_tags($_POST['aNum']);
-					$nbrLgn = $page->createPost($titre,$txt,$datvisu,$numchap); 
+					$bil = new \hydratation\billet();
+					//$bil->setIdentifiant($_POST['aid']);
+					$bil->setTitre(strip_tags($_POST['aTitre']));
+					$bil->setContenu($_POST['aTxt']);
+					$bil->setDateVisu(strip_tags($_POST['aDatVis']) . " " . strip_tags($_POST['aHeuVis']).":00");
+					$bil->setNumeroChapitre(strip_tags($_POST['aNum']));
+					$nbrLgn = $page->createPost($bil); 
 					break;     	
 						
 				default;
@@ -115,7 +123,7 @@
 					break;
 			}
 			
-			echo resultAff($objetGestion, $objet, $nbrLgn, "backend");
+			echo \models\resultAff($objetGestion, $objet, $nbrLgn, "backend");
 		}	
 	
 		/***************************************************************

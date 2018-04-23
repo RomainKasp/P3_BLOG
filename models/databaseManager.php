@@ -1,5 +1,5 @@
 <?php
-
+namespace models;
 class databaseManager
 {
 	//Gestion des connexions à la BDD
@@ -9,7 +9,7 @@ class databaseManager
 		$usrDb = "root";
 		$pswDb = "";
 				
-        $db = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8', $usrDb, $pswDb);
+        $db = new \PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8', $usrDb, $pswDb);
 		
         return $db;
     }	

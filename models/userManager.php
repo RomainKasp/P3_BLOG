@@ -1,5 +1,7 @@
 <?php
+	namespace models;
 	require_once("../models/databaseManager.php"); 
+	require_once("../hydratation/utilisateur.php"); 
 
 	class userManager extends databaseManager
 	{
@@ -18,14 +20,16 @@
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$tab[$ind][0] = $donnees['UTI_ID'];	
-				$tab[$ind][1] = $donnees['UTI_NOM'];	
-				$tab[$ind][2] = $donnees['UTI_PSW'];	
-				$tab[$ind][3] = $donnees['UTI_DAT_CRE'];	
-				$tab[$ind][4] = $donnees['UTI_DAT_FIN'];	
-				$tab[$ind][5] = $donnees['UTI_MAIL'];	
+				$util = new \hydratation\utilisateur();
+		        $util->setIdentifiant($donnees['UTI_ID']);
+		        $util->setNom($donnees['UTI_NOM']);
+		        $util->setPassCrypt($donnees['UTI_PSW']);
+		        $util->setDateCreation($donnees['UTI_DAT_CRE']);
+		        $util->setDateFinDroit($donnees['UTI_DAT_FIN']);
+		        $util->setMail($donnees['UTI_MAIL']);
+				$tab[$ind] = $util;	
 			}			
-			$tab[0][0] = $ind;
+			$tab[0] = $ind;
 			
 			return $tab;			
 		}

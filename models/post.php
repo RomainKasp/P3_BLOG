@@ -1,6 +1,6 @@
 <?php
+	namespace models;
 	require_once("../models/postManager.php"); 
-
 	class post extends postManager
 	{
 		/***************************************************************
@@ -13,9 +13,9 @@
 			$tab[0] = "Erreur de liaison serveur";	
 			$tab[1] = "Veuillez repasser plus tard";	
 			
-			$tab2 = $this->selectPage($id_page);
-			if(isset($tab2[0])){
-				$tab = $tab2;
+			$bil = $this->selectPage($id_page);
+			if($bil != false){
+				$tab = $bil;
 			}
 			
 			return $tab;
@@ -28,10 +28,10 @@
 			$tab[1] = "Veuillez repasser plus tard";	
 			$tab[7] = "";	
 			
-			$tab2 = $this->selectChap($id_page);
+			$bil = $this->selectChap($id_page);
 
-			if(isset($tab2[0])){
-				$tab = $tab2;
+			if($bil != false){
+				$tab = $bil;
 			}
 			
 			return $tab;
@@ -44,13 +44,13 @@
 			$tab[1] = "Veuillez repasser plus tard";	
 			$tab[7] = "";	
 			
-			$tab2 = $this->selectChapAdmin($id_page);
+			$bil = $this->selectChapAdmin($id_page);
 
-			if(isset($tab2[0])){
-				$tab = $tab2;
+			if($bil != false){
+				return $bil;
 			}
 			
-			return $tab;
+			return false;
 		}
 		/**
 		* Recupere le visuel de la liste des 10 derniers articles
@@ -60,13 +60,13 @@
 			$res = "";
 			$tab = $this->selectLastest();
 		
-			if ($tab[0][0] > 0){
-				for ($i = 1; $i <= $tab[0][0]; $i++) {
-					$dateArticle   = $tab[$i][3];
-					$titreArticle  = $tab[$i][2];
-					$resumeArticle = strip_tags($tab[$i][5]);
-					$imageArticle  = $tab[$i][7];
-					$id            = $tab[$i][0];
+			if ($tab[0] > 0){
+				for ($i = 1; $i <= $tab[0]; $i++) {
+					$dateArticle   = $tab[$i]->getDateVisu();
+					$titreArticle  = $tab[$i]->getTitre();
+					$resumeArticle = strip_tags($tab[$i]->getContenu());
+					$imageArticle  = $tab[$i]->getLienImage();
+					$id            = $tab[$i]->getIdentifiant();
 					
 					if (strlen($resumeArticle) > 150){
 						$resumeArticle = substr($resumeArticle,0,150) . "...";
@@ -87,10 +87,10 @@
 			$result = "Aucun chapitre disponible";	
 			$res = "";
 			$tab = $this->selectAllPost();			
-			if ($tab[0][0] > 0){
+			if ($tab[0] > 0){
 				$res .= "<ol>";
-				for ($i = 1; $i <= $tab[0][0]; $i++) {
-					$res .= '<li><a href="?page=chapitre&idchap='.$tab[$i][0].'">'.$tab[$i][2]."</a> </li>";
+				for ($i = 1; $i <= $tab[0]; $i++) {
+					$res .= '<li><a href="?page=chapitre&idchap='.$tab[$i]->getIdentifiant().'">'.$tab[$i]->getTitre()."</a> </li>";
 				}
 				$res .= "</ol>";
 				$result = $res;
@@ -106,12 +106,12 @@
 			$res = "";
 			$tab = $this->selectAllPage();
 		
-			if ($tab[0][0] > 0){
+			if ($tab[0] > 0){
 				$res .= "<table>";
-				for ($i = 1; $i <= $tab[0][0]; $i++) {
-					$titrePage  = $tab[$i][2];
-					$resumePage = $resumePage = strip_tags($tab[$i][5]);
-					$idPage     = $tab[$i][0];
+				for ($i = 1; $i <= $tab[0]; $i++) {
+					$titrePage  = $tab[$i]->getTitre();
+					$resumePage = $resumePage = strip_tags($tab[$i]->getContenu());
+					$idPage     = $tab[$i]->getIdentifiant();
 					
 					if (strlen($resumePage) > 150){
 						$resumePage = substr($resumePage,0,150) . "...";
@@ -135,12 +135,12 @@
 			$res = "";
 			$tab = $this->selectAllArticle();
 		
-			if ($tab[0][0] > 0){
+			if ($tab[0] > 0){
 				$res .= "<table width='50%'>";
-				for ($i = 1; $i <= $tab[0][0]; $i++) {
-					$titrePage  = $tab[$i][2];
-					$resumePage = strip_tags($tab[$i][5]);
-					$idPage     = $tab[$i][0];
+				for ($i = 1; $i <= $tab[0]; $i++) {
+					$titrePage  = $tab[$i]->getTitre();
+					$resumePage = strip_tags($tab[$i]->getContenu());
+					$idPage     = $tab[$i]->getIdentifiant();
 					
 					if (strlen($resumePage) > 50){
 						$resumePage = substr($resumePage,0,50) . "...";
@@ -168,12 +168,12 @@
 			$res = "";
 			$tab = $this->selectAllArticleAdmin();
 		
-			if ($tab[0][0] > 0){
+			if ($tab[0] > 0){
 				$res .= "<table width='50%'>";
-				for ($i = 1; $i <= $tab[0][0]; $i++) {
-					$titrePage  = $tab[$i][2];
-					$resumePage = strip_tags($tab[$i][5]);
-					$idPage     = $tab[$i][0];
+				for ($i = 1; $i <= $tab[0]; $i++) {
+					$titrePage  = $tab[$i]->getTitre();
+					$resumePage = strip_tags($tab[$i]->getContenu());
+					$idPage     = $tab[$i]->getIdentifiant();
 					
 					if (strlen($resumePage) > 50){
 						$resumePage = substr($resumePage,0,50) . "...";
@@ -210,9 +210,9 @@
 		/**
 		* Suppression d'un article
 		**/
-		public function deletePost($id){
+		public function deletePost($chap){
 
-			$nbrDel = $this->supprPost($id);
+			$nbrDel = $this->supprPost($chap);
 			return $nbrDel;
 		}	
 		/***************************************************************
@@ -221,9 +221,9 @@
 		/**
 		* Création d'un article
 		**/
-		public function createPost($titre,$txt,$datvisu,$numchap){
+		public function createPost($chap){
 
-			$nbrIns = $this->createArticle($titre,$txt,$datvisu,$numchap);
+			$nbrIns = $this->createArticle($chap);
 			return $nbrIns;
 		}	
 		/***************************************************************
@@ -232,17 +232,17 @@
 		/**
 		* Modificarion d'un article
 		**/
-		public function updatePost($titre,$txt,$datvisu,$numchap,$idbil){
+		public function updatePost($bil){
 
-			$nbrUpdt = $this->updtPost($titre,$txt,$datvisu,$numchap,$idbil);
+			$nbrUpdt = $this->updtPost($bil);
 			return $nbrUpdt;
 		}			
 		/**
 		* Modificarion d'une page
 		**/
-		public function updatePage($titre,$txt,$idbil){
+		public function updatePage($bil){
 
-			$nbrUpdt = $this->updtPage($titre,$txt,$idbil);
+			$nbrUpdt = $this->updtPage($bil);
 			return $nbrUpdt;
 		}			
 	}
