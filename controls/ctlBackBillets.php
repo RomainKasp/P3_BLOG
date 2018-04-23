@@ -1,6 +1,6 @@
 <?php
 	namespace controls;
-	require_once("../models/post.php"); 
+	//require_once("../models/post.php"); 
 
 	class ctlBackBillets 
 	{

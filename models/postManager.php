@@ -1,7 +1,7 @@
 <?php
 	namespace models;
-	require_once("../models/databaseManager.php"); 
-	require_once("../hydratation/billet.php"); 
+	//require_once("../models/databaseManager.php"); 
+	//require_once("../hydratation/billet.php"); 
 	
 	class postManager extends databaseManager
 	{

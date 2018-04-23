@@ -1,7 +1,7 @@
 <?php
 	namespace models;
-	require_once("../models/databaseManager.php"); 
-	require_once("../hydratation/utilisateur.php"); 
+	//require_once("../models/databaseManager.php"); 
+	//require_once("../hydratation/utilisateur.php"); 
 
 	class userManager extends databaseManager
 	{

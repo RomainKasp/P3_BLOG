@@ -1,6 +1,6 @@
 <?php
 	namespace controls;
-	require_once("../models/comment.php"); 
+	//require_once("../models/comment.php"); 
 
 	class ctlCommentaires
 	{

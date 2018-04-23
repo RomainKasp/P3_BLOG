@@ -1,8 +1,8 @@
 <?php
 	namespace controls;
-	require_once("../models/post.php"); 
+	/*require_once("../models/post.php"); 
 	require_once("../controls/ctlCommentaires.php"); 
-	require_once("../hydratation/billet.php"); 
+	require_once("../hydratation/billet.php"); */
 
 	class ctlFrontBillets 
 	{

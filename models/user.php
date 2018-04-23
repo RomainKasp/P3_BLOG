@@ -1,6 +1,6 @@
 <?php
 	namespace models;
-	require_once("../models/userManager.php"); 
+	//require_once("../models/userManager.php"); 
 
 	class user extends userManager
 	{

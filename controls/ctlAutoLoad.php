@@ -8,8 +8,8 @@
 		//décomposer la class pour l'integrer 
 		public static function callFile($className) {
 			
-			$path = "./".str_replace('\\', '/', $className). ".php";
-			echo "iciiiiiiiiiiiiiiiiiiiiiiiiiiiiii" .$path;
+			$path = "../".str_replace('\\', '/', $className). ".php";
+			
 			require $path ;
 		}
 	}

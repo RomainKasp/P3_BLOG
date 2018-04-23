@@ -1,6 +1,6 @@
 <?php
 	namespace models;
-	require_once("../models/databaseManager.php"); 
+	//require_once("../models/databaseManager.php"); 
 
 	class commentManager extends databaseManager
 	{

@@ -1,7 +1,7 @@
 <?php
 	namespace controls;
-	require_once("../controls/ctlFrontBillets.php"); 
-	require_once("../controls/ctlBackBillets.php"); 
+	//require_once("../controls/ctlFrontBillets.php"); 
+	//require_once("../controls/ctlBackBillets.php"); 
 	class ctlGeneral
 	{
 		/***************************************************************
