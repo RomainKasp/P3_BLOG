@@ -1,6 +1,5 @@
 <?php
 	namespace models;
-	//require_once("../models/postManager.php"); 
 	class post extends postManager
 	{
 		/***************************************************************

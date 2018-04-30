@@ -1,9 +1,9 @@
 <?php
 
-	class ctlAutoLoad {
+	class autoLoad {
 		// Que faire si inconnue?
 		public static function register(){
-			spl_autoload_register('ctlAutoLoad::callFile');
+			spl_autoload_register('autoLoad::callFile');
 		}
 		//décomposer la class pour l'integrer 
 		public static function callFile($className) {

@@ -1,9 +1,12 @@
 <?php
 	namespace models;
-	//require_once("../models/databaseManager.php"); 
 
 	class commentManager extends databaseManager
 	{
+		public $com;
+		function __construct($params){
+			$this->com	= $params['commentaire'];
+		}	
 		/***************************************************************
 		* Requetes de selections                                       *
 		***************************************************************/		
@@ -19,14 +22,16 @@
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$tab[$ind][0] = $donnees['COM_ID'];	
-				$tab[$ind][1] = $donnees['COM_USR'];	
-				$tab[$ind][2] = $donnees['COM_MAIL'];	
-				$tab[$ind][3] = $donnees['COM_TXT'];	
-				$tab[$ind][4] = $donnees['COM_DATE'];	
-				$tab[$ind][5] = $donnees['COM_NBR_RPT'];	
-				$tab[$ind][6] = $donnees['COM_ETAT'];	
-				$tab[$ind][7] = $donnees['COM_TIME'];	
+				$cmt= new \entities\commentaire();
+				$cmt->setIdentifiant($donnees['COM_ID']);
+				$cmt->setNom($donnees['COM_USR']);
+				$cmt->setMail($donnees['COM_MAIL']);
+				$cmt->setContenu($donnees['COM_TXT']);
+				$cmt->setDatePost($donnees['COM_DATE']);	
+				$cmt->setNbrReport($donnees['COM_NBR_RPT']);		
+				$cmt->setEtat($donnees['COM_ETAT']);		
+				$cmt->setHeurePost($donnees['COM_TIME']);	
+				$tab[$ind] = $cmt;	
 			}			
 			$tab[0][0] = $ind;
 			
@@ -43,14 +48,16 @@
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$tab[$ind][0] = $donnees['COM_ID'];	
-				$tab[$ind][1] = $donnees['COM_USR'];	
-				$tab[$ind][2] = $donnees['COM_MAIL'];	
-				$tab[$ind][3] = $donnees['COM_TXT'];	
-				$tab[$ind][4] = $donnees['COM_DATE'];	
-				$tab[$ind][5] = $donnees['COM_NBR_RPT'];	
-				$tab[$ind][6] = $donnees['COM_ETAT'];	
-				$tab[$ind][7] = $donnees['COM_TIME'];	
+				$cmt= new \entities\commentaire();
+				$cmt->setIdentifiant($donnees['COM_ID']);
+				$cmt->setNom($donnees['COM_USR']);
+				$cmt->setMail($donnees['COM_MAIL']);
+				$cmt->setContenu($donnees['COM_TXT']);
+				$cmt->setDatePost($donnees['COM_DATE']);	
+				$cmt->setNbrReport($donnees['COM_NBR_RPT']);		
+				$cmt->setEtat($donnees['COM_ETAT']);		
+				$cmt->setHeurePost($donnees['COM_TIME']);	
+				$tab[$ind] = $cmt;		
 			}			
 			$tab[0][0] = $ind;
 			
@@ -115,13 +122,15 @@
 		/**
 		* Insertion d'un commentaire
 		**/
-		protected function insComm($id_bill,$COM_USR,$COM_MAIL,$COM_TXT){
+		protected function insComm($com){
 			$bdd       = $this->dbConnect();
 			$requete = $bdd->prepare('INSERT INTO commentaire( BIL_ID,COM_USR,COM_MAIL,COM_TXT) VALUES (:idbill,:COMUSR,:COMMAIL,:COMTXT)');
-            $requete->execute(array('idbill'    => $id_bill    ,
-			                        'COMUSR'    => $COM_USR    ,
-                                    'COMMAIL'   => $COM_MAIL   ,
-                                    'COMTXT'    => $COM_TXT    ));
+            $requete->execute(array('idbill'    => $com->getIdBillet() 	,
+			                        'COMUSR'    => $com->getNom()			,
+                                    'COMMAIL'   => $com->getMail()		,
+                                    'COMTXT'    => $com->getContenu()  	))
+			//						or die(print_r($requete->errorInfo(), TRUE))
+			                         ;
 			$count = $requete->rowCount();
 			
 			return $count;

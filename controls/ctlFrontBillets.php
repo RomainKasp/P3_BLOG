@@ -1,11 +1,16 @@
 <?php
 	namespace controls;
-	/*require_once("../models/post.php"); 
-	require_once("../controls/ctlCommentaires.php"); 
-	require_once("../hydratation/billet.php"); */
 
 	class ctlFrontBillets 
 	{
+		public $page;
+		public $ctrlComment;
+		public $info;
+		function __construct($params){
+			$this->page 		= $params['post'];
+			$this->ctrlComment 	= $params['ctlCommentaires'];
+			$this->info			= $params['info'];
+		}
 		/***************************************************************
 		* Fonctions publique                                           *
 		***************************************************************/		
@@ -58,11 +63,10 @@
 				require("../view/frontend/view_post.php");
 			
 				// Partie Commentaires 
-				$ctrlComment=new ctlCommentaires();
-				$ctrlComment->commentChapitre($idchap);
+				$this->ctrlComment->commentChapitre($idchap);
 
 			}else{
-				echo resultAff("articl", "articles", 0, "frontend");
+				echo $this->info->resultAff("articl", "articles", 0, "frontend");
 			}			
 		}	
 		
@@ -70,17 +74,14 @@
 		* Liste des 10 derniers chapitres
 		**/
 		public function nouveautes(){
-			$page = new \models\post();
-			$vignettes = $page->getLastChap();
+			$vignettes = $this->page->getLastChap();
 			require("../view/frontend/view_lastest.php");
 		}	
 		/**
 		* Sommaire des chapitres
 		**/
 		public function sommaire(){
-			
-			$page = new \models\post();
-			$liste = $page->getListChap();
+			$liste = $this->page->getListChap();
 			
 	        require("../view/frontend/view_summary.php");		
 		}		
@@ -91,9 +92,7 @@
 		* Retourne les données d'une page dans un tableau
 		**/
 		private function consulterPage($idPage){
-
-			$page = new \models\post();
-			$tab = $page->getPage($idPage);
+			$tab = $this->page->getPage($idPage);
 			
 			return $tab;
 		}	
@@ -101,9 +100,7 @@
 		* Retourne les données d'un chapitre dans un tableau
 		**/
 		private function consulterChapitre($idChapitre){
-
-			$page = new \models\post();
-			$tab = $page->getChapitre($idChapitre);
+			$tab = $this->page->getChapitre($idChapitre);
 			
 			return $tab;
 		}			

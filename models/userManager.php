@@ -1,10 +1,12 @@
 <?php
 	namespace models;
-	//require_once("../models/databaseManager.php"); 
-	//require_once("../hydratation/utilisateur.php"); 
 
 	class userManager extends databaseManager
 	{
+		public $util;
+		function __construct($params){
+			$this->util	= $params['utilisateur'];
+		}	
 		/***************************************************************
 		* Requetes de selections                                       *
 		***************************************************************/		
@@ -20,14 +22,13 @@
 			
 			while ($donnees = $requete->fetch()){
 				$ind++;
-				$util = new \hydratation\utilisateur();
-		        $util->setIdentifiant($donnees['UTI_ID']);
-		        $util->setNom($donnees['UTI_NOM']);
-		        $util->setPassCrypt($donnees['UTI_PSW']);
-		        $util->setDateCreation($donnees['UTI_DAT_CRE']);
-		        $util->setDateFinDroit($donnees['UTI_DAT_FIN']);
-		        $util->setMail($donnees['UTI_MAIL']);
-				$tab[$ind] = $util;	
+		        $this->util->setIdentifiant($donnees['UTI_ID']);
+		        $this->util->setNom($donnees['UTI_NOM']);
+		        $this->util->setPassCrypt($donnees['UTI_PSW']);
+		        $this->util->setDateCreation($donnees['UTI_DAT_CRE']);
+		        $this->util->setDateFinDroit($donnees['UTI_DAT_FIN']);
+		        $this->util->setMail($donnees['UTI_MAIL']);
+				$tab[$ind] = $this->util;	
 			}			
 			$tab[0] = $ind;
 			

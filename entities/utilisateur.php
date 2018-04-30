@@ -1,5 +1,5 @@
 <?php
-	namespace hydratation;
+	namespace entities;
 	class utilisateur
 	{
 		private $identifiant; 

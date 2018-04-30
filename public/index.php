@@ -2,10 +2,9 @@
 	require("../public/func.inc.php");
 	require("../view/frontend/template/header.php");
 	require("../view/frontend/template/menu.php");
-	require("../controls/ctlAutoLoad.php");
+	require("../misc/autoLoad.php");
 	
-	$cal = new ctlAutoLoad();
+	$cal = new autoLoad();
 	$cal->register();
-	$dir = new controls\ctlGeneral();
-	$dir -> lanceur();
+	$contain = new misc\Container();
 	require("../view/frontend/template/footer.php");	

@@ -1,5 +1,5 @@
 <?php
-	namespace hydratation;
+	namespace entities;
 	class billet
 	{
 		private $identifiant; 

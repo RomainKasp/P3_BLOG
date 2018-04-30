@@ -1,6 +1,5 @@
 <?php
 	namespace models;
-	//require_once("../models/userManager.php"); 
 
 	class user extends userManager
 	{
@@ -22,6 +21,5 @@
 			}else{
 				return FALSE;
 			}
-		}		
-			
+		}				
 	}

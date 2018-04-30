@@ -1,9 +1,17 @@
 <?php
 	namespace controls;
-	//require_once("../models/comment.php"); 
 
 	class ctlCommentaires
 	{
+		public $com;
+		public $cmt;
+		public $info;
+		function __construct($params){
+			$this->com 	= $params['Comment'];
+			$this->cmt 	= $params['Commentaire'];
+			$this->info	= $params['info'];
+		}		
+		
 		/***************************************************************
 		* Fonctions publique                                           *
 		***************************************************************/		
@@ -25,8 +33,7 @@
 		**/
 		public function listerReportComm(){
 			
-			$com = new \models\comment();
-			$commentaires = $com->getRprtCom();
+			$commentaires = $this->com->getRprtCom();
 			
 			// visuels
 			require("../view/backend/crud_comment/view_comList.php");
@@ -36,31 +43,30 @@
 		**/
 		public function commentaireAction(){
 			$mode 		= "backend";
-			$com 		= new \models\comment();
 			$action      = @$_GET['action']; 
 			$identifiant = @$_GET['idcom'];
 			
 			switch($action){
 				case "reset";  
-					$commentaires = $com->resetReport($identifiant);
+					$commentaires = $this->com->resetReport($identifiant);
 					break;    	
 					
 				case "delete";  
-					$commentaires = $com->deleteComment($identifiant);  
+					$commentaires = $this->com->deleteComment($identifiant);  
 					break;
 					
 				case "valide";  
-					$commentaires = $com->confirmComment($identifiant); 
+					$commentaires = $this->com->confirmComment($identifiant); 
 					break;     	
 						
 				default;
 					$nbrReport    = @$_POST['valRprt']; 
 					$mode = "frontend";
-					$commentaires = $com->reportComment($identifiant,$nbrReport); 
+					$commentaires = $this->com->reportComment($identifiant,$nbrReport); 
 					break;
 			}
 			
-			echo \models\resultAff("commen", "commentaires", $commentaires, $mode);
+			echo $this->info->resultAff("commen", "commentaires", $commentaires, $mode);
 		}		
 		/***************************************************************
 		* Fonctions privées                                            *
@@ -69,17 +75,20 @@
 		* Test si il y a insertion de commentaire et envoie la demande
 		**/
 		private function controlInsert($idchap){
-			$com = new \models\comment();
 			$testNewCom =   (ISSET($_POST['newCom_ident'])) 
 					&& (ISSET($_POST['newCom_mail']))  && (ISSET($_POST['newCom_txt']));
-					
+			//print_r($_POST);		
 			if ($testNewCom){
-				$res = $com->insertCom($idchap,$_POST['newCom_ident'],$_POST['newCom_mail'],$_POST['newCom_txt']);
+				$this->cmt->setIdBillet($idchap);
+				$this->cmt->setNom($_POST['newCom_ident']);
+				$this->cmt->setMail($_POST['newCom_mail']);
+				$this->cmt->setContenu($_POST['newCom_txt']);
+				$res = $this->com->insertCom($this->cmt);
 				
 				if ($res > 0){
-				unset($_POST['newCom_ident']);
-				unset($_POST['newCom_mail']);
-				unset($_POST['newCom_txt']);
+					unset($_POST['newCom_ident']);
+					unset($_POST['newCom_mail']);
+					unset($_POST['newCom_txt']);
 				}else{
 					$Com_ident = strip_tags($_POST['newCom_ident']);
 					$Com_mail  = strip_tags($_POST['newCom_mail']);
@@ -100,8 +109,7 @@
 		* Visu des 50 derniers commentaires d'un chapitre
 		**/
 		private function lstComChap($idchap){
-			$com = new \models\comment();
-			$commentaires = $com->getLastCom($idchap);
+			$commentaires = $this->com->getLastCom($idchap);
 				
 			echo $commentaires;
 		}			

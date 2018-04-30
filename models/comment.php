@@ -1,6 +1,5 @@
 <?php
 	namespace models;
-	//require_once("../models/commentManager.php"); 
 
 	class comment extends commentManager
 	{
@@ -31,13 +30,13 @@
 		
 			if ($tab[0][0] > 0){
 				for ($i = 1; $i <= $tab[0][0]; $i++) {
-					$idcomX        = $tab[$i][0];
-					$pseudoCOmX    = $tab[$i][1];
-					$dateCOmX      = $tab[$i][4];
-					$timeCOmX      = $tab[$i][7];
-					$txtCOmX       = $tab[$i][3];
-					$nbrRprtCOmX   = $tab[$i][5];
-					$etatCOmX 	   = $tab[$i][6];
+					$idcomX        = $tab[$i]->getIdentifiant();
+					$pseudoCOmX    = $tab[$i]->getNom();
+					$dateCOmX      = $tab[$i]->getDatePost();
+					$timeCOmX      = $tab[$i]->getHeurePost();
+					$txtCOmX       = $tab[$i]->getContenu();
+					$nbrRprtCOmX   = $tab[$i]->getNbrReport();
+					$etatCOmX 	   = $tab[$i]->getEtat();
 					
 					$nbrRprtCOmX++;
 					
@@ -59,12 +58,12 @@
 		
 			if ($tab[0][0] > 0){
 				for ($i = 1; $i <= $tab[0][0]; $i++) {
-					$idcomX        = $tab[$i][0];
-					$pseudoCOmX    = $tab[$i][1];
-					$dateCOmX      = $tab[$i][4];
-					$timeCOmX      = $tab[$i][7];
-					$txtCOmX       = $tab[$i][3];
-					$nbrRprtCOmX   = $tab[$i][5];
+					$idcomX        = $tab[$i]->getIdentifiant();
+					$pseudoCOmX    = $tab[$i]->getNom();
+					$dateCOmX      = $tab[$i]->getDatePost();
+					$timeCOmX      = $tab[$i]->getHeurePost();
+					$txtCOmX       = $tab[$i]->getContenu();
+					$nbrRprtCOmX   = $tab[$i]->getNbrReport();
 					
 					include("../view/backend/template/template_commentList.php");
 					$res .= $commentaireX;
@@ -86,9 +85,9 @@
 		/**
 		* Insertion un commentaire
 		**/
-		public function insertCom($id_bill,$nom, $mail, $txt){
+		public function insertCom($cmt){
 
-			$nbrInsr = $this->insComm($id_bill, $nom, $mail, $txt);
+			$nbrInsr = $this->insComm($cmt);
 			return $nbrInsr;
 		}			
 		/***************************************************************

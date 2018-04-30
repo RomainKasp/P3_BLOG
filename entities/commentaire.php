@@ -1,5 +1,5 @@
 <?php
-	namespace hydratation;
+	namespace entities;
 	class commentaire
 	{
         private $identifiant;  
@@ -8,58 +8,65 @@
         private $email; 
         private $contenu; 
         private $datePost; 
+        private $heurePost; 
         private $nbrReport; 
         private $etat;
 		
 		// Getters
-		public getIdentifiant(){
+		public function getIdentifiant(){
 			return $this->identifiant;
 		}
-		public getIdBillet(){
+		public function getIdBillet(){
 			return $this->idBillet;
 		}
-		public getNom(){
+		public function getNom(){
 			return $this->nom;
 		}
-		public getMail(){
+		public function getMail(){
 			return $this->email;
 		}
-		public getContenu(){
+		public function getContenu(){
 			return $this->contenu;
 		}
-		public getDatePost(){
+		public function getDatePost(){
 			return $this->datePost;
 		}
-		public getNbrReport(){
+		public function getNbrReport(){
 			return $this->nbrReport;
 		}
-		public getEtat(){
+		public function getEtat(){
 			return $this->etat;
+		}
+		public function getHeurePost(){
+			return $this->heurePost;
 		}
 		
 		// Setters
-		public setIdentifiant($param){
+		public function setIdentifiant($param){
 			$this->identifiant = $param;
 		}	
-		public setIdBillet($param){
+		public function setIdBillet($param){
 			 $this->idBillet = $param;
 		}
-		public setNom($param){
+		public function setNom($param){
 			 $this->nom = $param;
 		}
-		public setMail($param){
+		public function setMail($param){
 			 $this->email = $param;
 		}
-		public setContenu($param){
+		public function setContenu($param){
 			 $this->contenu = $param;
 		}
-		public setDatePost($param){
+		public function setDatePost($param){
 			 $this->datePost = $param;
 		}
-		public setNbrReport($param){
+		public function setNbrReport($param){
 			 $this->nbrReport = $param;
 		}
-		public setEtat($param){
+		public function setEtat($param){
 			 $this->etat = $param;
+		}	
+		public function setHeurePost($param){
+			 $this->heurePost = $param;
 		}	
 	}
