@@ -1,5 +1,4 @@
 <?php
-
 	class autoLoad {
 		// Que faire si inconnue?
 		public static function register(){

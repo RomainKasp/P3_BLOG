@@ -3,9 +3,9 @@
 
 	class ctlCommentaires
 	{
-		public $com;
-		public $cmt;
-		public $info;
+		private $com;
+		private $cmt;
+		private $info;
 		function __construct($params){
 			$this->com 	= $params['Comment'];
 			$this->cmt 	= $params['Commentaire'];

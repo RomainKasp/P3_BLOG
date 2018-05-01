@@ -1,22 +1,38 @@
 <?php
 	namespace misc;
 	class Container{
-		function __construct(){
-			$this->getRouter()-> lanceur();
+		private $matches;
+		private $matchesAdmin;
+		private $configPdo;
+		function __construct($params){
+			$this->matches 		= $params['matches'];
+			$this->matchesAdmin	= $params['matchesAdm'];
+			$this->configPdo 	= $params['configPdo'];
 		}
 		/***************************************************************
 		**                          MISC                              **
 		***************************************************************/
 		public function getRouter(){
 			static $instance;
-			
 			if (!isset($instance)){
 				$params = [	"ctlFrtBil"    	=> $this->getCtlFrontBillets(),
 				           	"ctlBckBil"    	=> $this->getCtlBackBillets(),
 							"ctlComment" 	=> $this->getCtlCommentaires(),
-							"secure" 		=> $this->getSecurity()
+							"secure" 		=> $this->getSecurity(),
+							"routerViews" 	=> $this->getRouterViews(),
+							"matches" 		=> $this->matches,
+							"matchesAdm" 	=> $this->matchesAdmin,
 						 ];
 				$instance = new \misc\router($params);
+			}
+
+			return $instance;
+		}
+		public function getRouterViews(){
+			static $instance;
+			
+			if (!isset($instance)){
+				$instance = new \misc\routerViews();
 			}
 
 			return $instance;
@@ -120,11 +136,25 @@
 		/***************************************************************
 		**                         MODELS                             **
 		***************************************************************/
+		public function getPDO(){
+			static $instance;
+			if (!isset($instance)){
+				$host  = $this->configPdo['host'];
+				$db    = $this->configPdo['db'];
+				$usrDb = $this->configPdo['usrDb'];                                           
+				$pswDb = $this->configPdo['pswDb'];			
+				$instance = new \PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8', $usrDb, $pswDb);
+			}
+
+			return $instance;
+		}	
+		/*------------------------------------------------------------*/	
 		public function getPost(){
 			static $instance;
 			
 			if (!isset($instance)){
-				$params = [	"billet"=> $this->getBillet()
+				$params = [	"connexionBDD" 	=> $this->getPDO(),
+							"billet"=> $this->getBillet()
 						 ];				
 				$instance = new \models\post($params);
 			}
@@ -136,7 +166,8 @@
 			static $instance;
 			
 			if (!isset($instance)){
-				$params = [	"commentaire"=> $this->getCommentaire()
+				$params = [	"connexionBDD" 	=> $this->getPDO(),
+							"commentaire"	=> $this->getCommentaire()
 						 ];	
 				$instance = new \models\comment($params);
 			}
@@ -148,7 +179,8 @@
 			static $instance;
 			
 			if (!isset($instance)){
-				$params = [	"utilisateur"=> $this->getUtilisateur()
+				$params = [	"connexionBDD" 	=> $this->getPDO(),
+							"utilisateur"=> $this->getUtilisateur()
 						 ];				
 				$instance = new \models\user($params);
 			}
@@ -160,7 +192,8 @@
 			static $instance;
 			
 			if (!isset($instance)){
-				$params = [	"commentaire"=> $this->getCommentaire()
+				$params = [	"connexionBDD" 	=> $this->getPDO(),
+							"commentaire"=> $this->getCommentaire()
 						 ];				
 				$instance = new \models\commentManager($params);
 			}
@@ -172,7 +205,8 @@
 			static $instance;
 			
 			if (!isset($instance)){
-				$params = [	"utilisateur"=> $this->getUtilisateur()
+				$params = [	"connexionBDD" 	=> $this->getPDO(),
+							"utilisateur"=> $this->getUtilisateur()
 						 ];				
 				$instance = new \models\userManager($params);
 			}
@@ -183,9 +217,10 @@
 		public function getPostManager(){
 			static $instance;
 			
-			if (!isset($instance)){
-				$params = [	"billet"=> $this->getBillet()
-						 ];				
+			if (!isset($instance)){				 
+				$params = [	"connexionBDD" 	=> $this->getPDO(),
+							"billet"		=> $this->getBillet()
+						 ];					
 				$instance = new \models\postManager($params);
 			}
 

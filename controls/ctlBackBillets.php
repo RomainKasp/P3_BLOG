@@ -3,9 +3,9 @@
 
 	class ctlBackBillets 
 	{
-		public $page;
-		public $bil;
-		public $info;
+		private $page;
+		private $bil;
+		private $info;
 		function __construct($params){
 			$this->page	= $params['post'];
 			$this->bil	= $params['billet'];

@@ -3,9 +3,10 @@
 	
 	class postManager extends databaseManager
 	{
-		public $bil;
+		private $bil;
 		function __construct($params){
-			$this->bil	= $params['billet'];
+			$this->bil		= $params['billet'];
+			$this->connexion= $params['connexionBDD'];
 		}	
 		/***************************************************************
 		* Requetes de selections                                       *

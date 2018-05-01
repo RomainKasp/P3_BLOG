@@ -2,7 +2,7 @@
 	namespace misc;
 	class security
 	{			
-		public $usr;
+		private $usr;
 		function __construct($params){
 			$this->usr	= $params['user'];
 		}	
@@ -40,6 +40,15 @@
 			}else {
 				return true;
 			}
+		}		
+		/**
+		* Deconnexion d'un utilisateur
+		**/
+		public function deconnecterUtil(){
+			session_destroy();
+			session_start();
+			$token = $this->creerToken();
+			require("../view/backend/crud_user/view_userConnect.php"); 
 		}		
 		/**
 		* Création d'un token

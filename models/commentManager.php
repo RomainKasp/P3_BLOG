@@ -3,9 +3,10 @@
 
 	class commentManager extends databaseManager
 	{
-		public $com;
+		private $com;
 		function __construct($params){
 			$this->com	= $params['commentaire'];
+			$this->connexion= $params['connexionBDD'];
 		}	
 		/***************************************************************
 		* Requetes de selections                                       *

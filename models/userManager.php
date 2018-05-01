@@ -6,6 +6,7 @@
 		public $util;
 		function __construct($params){
 			$this->util	= $params['utilisateur'];
+			$this->connexion= $params['connexionBDD'];
 		}	
 		/***************************************************************
 		* Requetes de selections                                       *

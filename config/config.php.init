@@ -1,0 +1,28 @@
+<?php
+	$config=[
+	
+	"configPdo" => [	"host" 			=> "",
+						"db"			=> "",
+						"usrDb"			=> "",
+						"pswDb"			=> ""
+					],
+	"matches" 	=> [	"home" 			=> ["controleur"=>"ctlFrtBil", 	"action"=>"acceuil"],
+						"about" 		=> ["controleur"=>"ctlFrtBil", 	"action"=>"auteur"],
+						"latest" 		=> ["controleur"=>"ctlFrtBil", 	"action"=>"nouveautes"],
+						"summary" 		=> ["controleur"=>"ctlFrtBil", 	"action"=>"sommaire"],
+						"chapitre" 		=> ["controleur"=>"ctlFrtBil", 	"action"=>"chapitre"],
+						"commentaire" 	=> ["controleur"=>"ctlComment", "action"=>"commentaireAction"],
+						"access" 		=> ["controleur"=>"secure", 	"action"=>"securiseAdministrateur"],
+					],
+	"matchesAdm"=> [	"connect" 		=> ["controleur"=>"vue", 		"action"=>"adminHome"],
+						"home" 			=> ["controleur"=>"vue", 		"action"=>"adminHome"],
+						"articl" 		=> ["controleur"=>"ctlBckBil", 	"action"=>"listerChapitre"],
+						"pagesA" 		=> ["controleur"=>"ctlBckBil", 	"action"=>"listerPage"],
+						"commen" 		=> ["controleur"=>"ctlComment", "action"=>"listerReportComm"],
+						"createArt" 	=> ["controleur"=>"ctlBckBil", 	"action"=>"creerChapitre"],
+						"updateArt" 	=> ["controleur"=>"ctlBckBil", 	"action"=>"modifierChapitre"],
+						"updatePag" 	=> ["controleur"=>"ctlBckBil",	"action"=>"modifierPage"],
+						"billet" 		=> ["controleur"=>"ctlBckBil", 	"action"=>"actionPage"],
+						"disconnect" 	=> ["controleur"=>"secure", 	"action"=>"deconnecterUtil"],
+					]
+			];

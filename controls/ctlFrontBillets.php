@@ -3,9 +3,9 @@
 
 	class ctlFrontBillets 
 	{
-		public $page;
-		public $ctrlComment;
-		public $info;
+		private $page;
+		private $ctrlComment;
+		private $info;
 		function __construct($params){
 			$this->page 		= $params['post'];
 			$this->ctrlComment 	= $params['ctlCommentaires'];
