@@ -251,10 +251,13 @@
 		/**
 		* Suppression d'un article
 		**/
-		protected function supprPost($bil){
+		protected function supprPost($bil){ 
 			$bdd = $this->dbConnect();
-			$requete = $bdd->prepare("DELETE FROM billet WHERE BIL_ID = :BIL_ID");
-            $requete->execute(array('BIL_ID'     => $bil->getIdentifiant()    ));
+			$requete = $bdd->prepare("DELETE FROM commentaire WHERE BIL_ID = :BIL_ID");
+            $requete->execute(array('BIL_ID'     => $bil->getIdentifiant()    )) or die(print_r($requete->errorInfo(), TRUE));
+			
+			$requete = $bdd->prepare("DELETE FROM billet WHERE BIL_ID = :BIL_ID");	
+            $requete->execute(array('BIL_ID'     => $bil->getIdentifiant()    )) or die(print_r($requete->errorInfo(), TRUE));
 			$count = $requete->rowCount();
 			
 			return $count;
