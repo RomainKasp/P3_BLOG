@@ -5,7 +5,7 @@
 		/***************************************************************
 		* Fonctions publique                                           *
 		***************************************************************/		
-		public function formulaireConnexion(){	
+		public function formulaireConnexion($token){	
 			require("../view/backend/crud_user/view_userConnect.php");
 		}	
 		public function adminHome(){	

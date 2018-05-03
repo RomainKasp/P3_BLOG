@@ -1,9 +1,3 @@
-
-
-/*
-Author: XpeedStudio
-Author URI: http://themeforest.net/user/XpeedStudio/portfolio
-*/
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
@@ -572,7 +566,7 @@ input:-ms-input-placeholder {
 /*For Skill Area*/
 
 .skill-bg{
-    background: url(../images/skills-bg.jpg) no-repeat center;
+    background: url(./public/images/skills-bg.jpg) no-repeat center;
     -moz-background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
@@ -1337,3 +1331,105 @@ input:-ms-input-placeholder {
     color:#333;
     transform:scale(1.1);
 }	
+/* tst */
+.copyright-footer{
+	position: absolute;
+	right: 0px;
+	left: 0px;
+	bottom: 0px;
+}
+td{
+	padding: 5px;
+}
+	.usrVign{
+		background-color: silver;
+		text-align:center;
+		width : 50%;
+		border: 1px solid black;
+		border-radius: 20px;
+		margin: 10px;
+		padding: 10px;
+	}
+	.usrTab{
+		text-align:center;
+		width : 100%;
+		border-collapse:collapse;
+	}	
+	.usrNom{
+		font-weight:bold;
+		font-size: X-large;
+	}		
+	.usrMail{
+		text-align: center;
+		font-size: large;
+	}		
+	.usrDateCre{
+		text-align: right;
+		width : 50%;
+		font-size: large;
+	}		
+	.usrDateFin{
+		text-align: left;
+		width : 50%;
+		font-size: large;
+	}		
+	.btnUser{
+		font-size: large;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 10px;
+	}	
+	.btnUser:hover{
+		font-size: X-large;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 0px;
+		background-color: grey;
+	}		
+	.btnUser:active{
+		font-size: large;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 10px;
+		background-color: light-grey;
+	}
+	.usrVign2{
+		background-color: white;
+		text-align:center;
+		width : 50%;
+		border: 1px solid white;
+		border-radius: 20px;
+		margin: 10px;
+	}
+	.tab-Val{
+		text-align: left;
+		width : 50%;
+	}	
+	.tab-Lab{
+		text-align: right;
+		font-weight:bold;
+		width : 50%;
+	}	
+	.tab-Lab2{
+		text-align: center;
+		font-weight:bold;
+	}	
+	.xdebug-error{
+		margin-top: 200px;
+	}	
+	.info-success{
+		margin-top: 50px;
+		border-radius:20px;
+		text-align:center;
+		width : 50%;
+		border: 1px solid #31B404;
+		background-color: #58FA58;
+	}
+	.info-fail{
+		margin-top: 50px;
+		border-radius:20px;
+		text-align:center;
+		width : 50%;
+		border: 1px solid #F78181;
+		background-color: #DF0101;
+	}

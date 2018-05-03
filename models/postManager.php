@@ -16,8 +16,8 @@
 		**/
 		protected function selectChap($BIL_ID){
 			$bdd     = $this->dbConnect();
-			$requete = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_CHAP, BIL_IMG FROM billet WHERE BIL_DAT_VISU < current_time AND BIL_CHAP > 0 AND BIL_ID =:BIL_ID");
-			$requete->bindValue(':BIL_ID', $BIL_ID);
+			$requete = $bdd->prepare("SELECT BIL_ID, UTI_ID, BIL_TITRE, BIL_DAT_CRE, BIL_DAT_MOD, BIL_TXT, BIL_DAT_VISU, BIL_CHAP, BIL_IMG FROM billet WHERE BIL_DAT_VISU < CURRENT_TIMESTAMP AND BIL_CHAP > 0 AND BIL_ID =:BIL_ID");
+			$requete->bindValue(':BIL_ID', $BIL_ID) or die(print_r($requete->errorInfo(), TRUE));
 			$requete->execute();
 
 			while ($donnees = $requete->fetch()){

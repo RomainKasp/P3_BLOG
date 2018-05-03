@@ -102,7 +102,7 @@
 		**/
 		private function visuNewCom($idchap){
 			
-			include('..\view\frontend\template\template_commentCreate.php');
+			require('../view/frontend/template/template_commentCreate.php');
 		}	
 		
 		/**

@@ -62,7 +62,7 @@
 				}
 			}else{
 				$token = $this->secure->creerToken();
-				$this->vue->formulaireConnexion();   
+				$this->vue->formulaireConnexion($token);   
 			}
 		}						
 	}
