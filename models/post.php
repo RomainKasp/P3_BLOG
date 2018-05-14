@@ -8,48 +8,23 @@
 		/**
 		* Recupere une page
 		**/
-		public function getPage($id_page){
-			$tab[0] = "Erreur de liaison serveur";	
-			$tab[1] = "Veuillez repasser plus tard";	
+		public function getPage($id_page){	
 			
-			$bil = $this->selectPage($id_page);
-			if($bil != false){
-				$tab = $bil;
-			}
-			
-			return $tab;
+			return $this->selectPage($id_page);
 		}		
 		/**
 		* Recupere un chapitre
 		**/
 		public function getChapitre($id_page){
-			$tab[0] = "Erreur de liaison serveur";	
-			$tab[1] = "Veuillez repasser plus tard";	
-			$tab[7] = "";	
 			
-			$bil = $this->selectChap($id_page);
-
-			if($bil != false){
-				$tab = $bil;
-			}
-			
-			return $tab;
+			return $this->selectChap($id_page);
 		}
 		/**
 		* Recupere un chapitre admin version
 		**/
 		public function getChapitreAdmin($id_page){
-			$tab[0] = "Erreur de liaison serveur";	
-			$tab[1] = "Veuillez repasser plus tard";	
-			$tab[7] = "";	
-			
-			$bil = $this->selectChapAdmin($id_page);
 
-			if($bil != false){
-				return $bil;
-			}
-			
-			return false;
+			return $this->selectChapAdmin($id_page);
 		}
 		/**
 		* Recupere le visuel de la liste des 10 derniers articles

@@ -3,7 +3,7 @@
 
 	class userManager extends databaseManager
 	{
-		public $util;
+		protected $util;
 		function __construct($params){
 			$this->util	= $params['utilisateur'];
 			$this->connexion= $params['connexionBDD'];

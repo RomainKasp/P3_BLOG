@@ -144,6 +144,7 @@
 				$usrDb = $this->configPdo['usrDb'];                                           
 				$pswDb = $this->configPdo['pswDb'];			
 				$instance = new \PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8', $usrDb, $pswDb);
+				$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 			}
 
 			return $instance;
