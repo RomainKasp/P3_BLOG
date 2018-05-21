@@ -44,25 +44,25 @@
 		public function commentaireAction(){
 			$mode 		= "backend";
 			$action      = @$_GET['action']; 
-			$identifiant = @$_GET['idcom'];
+			$this->cmt->setIdentifiant(@$_GET['idcom']);
 			
 			switch($action){
 				case "reset";  
-					$commentaires = $this->com->resetReport($identifiant);
+					$commentaires = $this->com->resetReport($this->cmt);
 					break;    	
 					
 				case "delete";  
-					$commentaires = $this->com->deleteComment($identifiant);  
+					$commentaires = $this->com->deleteComment($this->cmt);  
 					break;
 					
 				case "valide";  
-					$commentaires = $this->com->confirmComment($identifiant); 
+					$commentaires = $this->com->confirmComment($this->cmt); 
 					break;     	
 						
 				default;
-					$nbrReport    = @$_POST['valRprt']; 
+					$this->cmt->setNbrReport(@$_POST['valRprt']);
 					$mode = "frontend";
-					$commentaires = $this->com->reportComment($identifiant,$nbrReport); 
+					$commentaires = $this->com->reportComment($this->cmt); 
 					break;
 			}
 			

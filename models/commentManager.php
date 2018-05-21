@@ -71,10 +71,10 @@
 		/**
 		* Suppression d'un commentaire
 		**/
-		protected function supprCom($id_com){
+		protected function supprCom($cmt){
 			$bdd = $this->dbConnect();
 			$requete = $bdd->prepare("DELETE FROM commentaire WHERE COM_ID = :id_com");
-            $requete->execute(array('id_com'     => $id_com    ));
+            $requete->execute(array('id_com'     => $cmt->getIdentifiant()    ));
 			$count = $requete->rowCount();
 			
 			return $count;
@@ -86,11 +86,11 @@
 		/**
 		* Report d'un commentaire
 		**/
-		protected function rprtComm($id_com,$nbr_Rupt){
+		protected function rprtComm($cmt){
 			$bdd = $this->dbConnect();
 			$requete = $bdd->prepare("UPDATE commentaire SET COM_NBR_RPT = :nbr_Rupt WHERE COM_ID = :idcom");
-            $requete->execute(array('nbr_Rupt'  => $nbr_Rupt    ,
-			                        'idcom'     => $id_com    ));
+            $requete->execute(array('nbr_Rupt'  => $cmt->getNbrReport()      ,
+			                        'idcom'     => $cmt->getIdentifiant()    ));
 			$count = $requete->rowCount();
 			
 			return $count;
@@ -98,10 +98,10 @@
 		/**
 		* Remise à zero du nombre de report
 		**/
-		protected function resetCom($id_com){
+		protected function resetCom($cmt){
 			$bdd = $this->dbConnect();
 			$requete = $bdd->prepare("UPDATE commentaire SET COM_NBR_RPT = 0 WHERE COM_ID = :idcom");
-            $requete->execute(array('idcom'     => $id_com    ));
+            $requete->execute(array('idcom'     => $cmt->getIdentifiant()    ));
 			$count = $requete->rowCount();
 			
 			return $count;
@@ -109,10 +109,10 @@
 		/**
 		* Remise à zero du nombre de report + forcer la validation
 		**/
-		protected function validateCom($id_com){
+		protected function validateCom($cmt){
 			$bdd = $this->dbConnect();
 			$requete = $bdd->prepare("UPDATE commentaire SET COM_NBR_RPT = 0, COM_ETAT =3 WHERE COM_ID = :idcom");
-            $requete->execute(array('idcom'     => $id_com    ));
+            $requete->execute(array('idcom'     => $cmt->getIdentifiant()    ));
 			$count = $requete->rowCount();
 			
 			return $count;

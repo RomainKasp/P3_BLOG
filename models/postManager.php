@@ -134,7 +134,7 @@
 		        $Tbil->setNumeroPage($donnees['BIL_EST_PAGE']);
 		        $Tbil->setNumeroChapitre(0);
 		        $Tbil->setLienImage($donnees['BIL_IMG']);
-				$tab[$ind] = $Tbil;;		
+				$tab[$ind] = $Tbil;		
 			}			
 			$tab[0] = $ind;
 			

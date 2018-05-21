@@ -96,25 +96,26 @@
 		/**
 		* Metre à jour le nombre de report d'un commentaire
 		**/
-		public function reportComment ($id_bill,$nbrRprt){
+		public function reportComment ($com){
 			
-			$nbrUpd = $this->rprtComm($id_bill,$nbrRprt);
+			$nbrUpd = $this->rprtComm($com);
 			return $nbrUpd;
 		}
 		/**
 		* Metre à jour le nombre de report d'un commentaire
 		**/
-		public function resetReport ($id_bill){
+		public function resetReport ($com){
 			
-			$nbrUpd = $this->rprtComm($id_bill,0);
+			$com->setNbrReport(0);
+			$nbrUpd = $this->rprtComm($com);
 			return $nbrUpd;
 		}
 		/**
 		* Valider le commentaire (état à 3 + nbrRprt = 0)
 		**/
-		public function confirmComment ($id_bill){
+		public function confirmComment ($com){
 			
-			$nbrUpd = $this->validateCom($id_bill);
+			$nbrUpd = $this->validateCom($com);
 			return $nbrUpd;
 		}
 		/***************************************************************
@@ -123,9 +124,9 @@
 		/**
 		* Suppression d'un commentaire
 		**/
-		public function deleteComment($id){
+		public function deleteComment($com){
 
-			$nbrDel = $this->supprCom($id);
+			$nbrDel = $this->supprCom($com);
 			return $nbrDel;
 		}			
 	}

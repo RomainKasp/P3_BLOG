@@ -26,23 +26,25 @@
 		/**
 		* Redirige vers le controleur associer au menu et sa fonction
 		**/
-		public function lanceur(){	
-			if (isset($_GET['page']))
-				$page = @$_GET['page']; 
-			else 
-				$page = "home";
-		
-			$controller = $this->matches[$page]['controleur'];
-			$action 	= $this->matches[$page]['action'];	
+		public function lanceur(){
+		    $url = substr($_SERVER['QUERY_STRING'], 7);
+		    $url = $_SERVER['QUERY_STRING'];
+			//var_dump($_SERVER);
+            foreach ($this->matches as $pattern => $controllerAction) {
 				
-			if ($page=="access"){ 
-				$aut= $this->$controller->$action();
-				$this->adminPanel($aut);
-			}else{
-				$this->$controller->$action();
-			}
-			
-		}			
+                if (preg_match($pattern, $url)) {
+					$controller = $this->matches[$pattern]['controleur'];
+                    $action 	= $this->matches[$pattern]['action'];
+					
+                    if (@$_GET['page'] == "access"){ 
+						$aut= $this->$controller->$action();
+						$this->adminPanel($aut);
+					}else{
+						$this->$controller->$action();
+					}
+                }
+            }	
+		}		
 		
 		/***************************************************************
 		* Fonctions privées                                            *
